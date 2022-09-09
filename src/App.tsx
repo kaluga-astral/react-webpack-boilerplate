@@ -1,3 +1,5 @@
+import logoSrc from 'images/logo.png';
+import { BrowserRouter, Route, RouterLink, Routes } from 'common/router';
 import {
   DashboardLayout,
   Divider,
@@ -6,10 +8,8 @@ import {
   Menu,
   MenuItem,
   ThemeProvider,
-} from '@astral/ui';
-import { ProfileOutlineMd, QuitOutlineMd } from '@astral/icons';
-import logoSrc from 'images/logo.png';
-import { BrowserRouter, Route, RouterLink, Routes } from 'common/router';
+} from 'common/ui';
+import { ProfileOutlineMd, QuitOutlineMd } from 'common/icons';
 
 import { theme } from './config/theme';
 import MainPage from './pages/main';

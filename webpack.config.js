@@ -16,6 +16,7 @@ const {
   useEnv,
   useFavicons,
   useBundleAnalyzer,
+  useSvgr,
 } = require('./webpack');
 
 const { ENV_NAME = 'local' } = process.env;
@@ -36,6 +37,7 @@ module.exports = (_, { mode }) =>
     useBabel({ useTs: true }),
     useTs(),
     useFonts(),
+    useSvgr(),
     useUrlImages({ mode }),
     useDevServer({ mode, port: 3000 }),
     useOptimization({

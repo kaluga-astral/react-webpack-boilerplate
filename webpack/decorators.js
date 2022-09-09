@@ -62,12 +62,12 @@ const useUrlImages = ({ mode }) =>
       ['jpegtran', { progressive: true }],
       ['svgo', SVGO_CONFIG],
     ],
-    // loaderParams: {
-    //   exclude: [
-    //     // исключаем icons для того, чтобы не было пересечений с svgr
-    //     new RegExp(`icons\\${path.sep}.*\\.svg$`, 'i'),
-    //   ],
-    // },
+    loaderParams: {
+      exclude: [
+        // исключаем icons для того, чтобы не было пересечений с svgr
+        new RegExp(`icons\\${path.sep}.*\\.svg$`, 'i'),
+      ],
+    },
   });
 
 const useSvgr = () =>
