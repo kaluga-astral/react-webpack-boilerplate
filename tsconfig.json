@@ -1,0 +1,27 @@
+{
+  "compilerOptions": {
+    "baseUrl": ".",
+    "module": "esnext",
+    "lib": ["dom", "esnext"],
+    "moduleResolution": "node",
+    "jsx": "react-jsx",
+    "esModuleInterop": true,
+    "noImplicitReturns": true,
+    "noImplicitThis": true,
+    "noImplicitAny": true,
+    "strictNullChecks": true,
+    "target": "es5",
+    "strict": true,
+    "resolveJsonModule": true,
+    "skipLibCheck": true,
+    "noEmit": true,
+    "paths": {
+      "common/*": [
+        "./src/common/*"
+      ],
+      "images/*": ["./public/images/*"],
+      "config": ["./src/config"]
+    },
+  },
+  "include": ["./ts-modules/**/*.ts", "./src/**/*.ts", "./src/**/*.tsx", "./global.d.ts", "./*.js"]
+}
