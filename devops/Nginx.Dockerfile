@@ -18,7 +18,7 @@ COPY src ./src
 COPY public ./public
 COPY env ./env
 
-# Игнорируются devDependency рпи установке зависимостей
+# Игнорируются devDependency при установке зависимостей
 RUN npm i --production
 
 ARG API_URL
