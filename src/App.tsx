@@ -9,10 +9,11 @@ import {
 } from '@astral/ui';
 import { ProfileOutlineMd, QuitOutlineMd } from '@astral/icons';
 import logoSrc from 'images/logo.png';
-import { BrowserRouter, RouterLink } from 'common/router';
+import { BrowserRouter, Route, RouterLink, Routes } from 'common/router';
 
 import { theme } from './config/theme';
 import MainPage from './pages/main';
+import DocumentsPage from './pages/documents';
 
 const App = () => (
   <BrowserRouter>
@@ -66,9 +67,7 @@ const App = () => (
                         text: 'Входящие документы',
                         active: true,
                         component: (props) => {
-                          return (
-                            <RouterLink to="/incoming-documents" {...props} />
-                          );
+                          return <RouterLink to="/" {...props} />;
                         },
                       },
                     ],
@@ -78,9 +77,7 @@ const App = () => (
                         text: 'Исходящие документы',
                         active: false,
                         component: (props) => {
-                          return (
-                            <RouterLink to="/outgoing-documents" {...props} />
-                          );
+                          return <RouterLink to="/documents" {...props} />;
                         },
                       },
                     ],
@@ -91,7 +88,10 @@ const App = () => (
           }}
         />
         <DashboardLayout.Main>
-          <MainPage />
+          <Routes>
+            <Route path="/" element={<MainPage />} />
+            <Route path="/documents" element={<DocumentsPage />} />
+          </Routes>
         </DashboardLayout.Main>
       </DashboardLayout>
     </ThemeProvider>
