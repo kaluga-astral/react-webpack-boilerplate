@@ -11,7 +11,7 @@ COPY .npmrc ./.npmrc
 COPY tsconfig.json ./tsconfig.json
 COPY webpack ./webpack
 COPY webpack.config.js ./webpack.config.js
-COPY babel.config.js ./babel.config.js
+COPY babel.config.json ./babel.config.json
 
 # Копируются исходники
 COPY src ./src
