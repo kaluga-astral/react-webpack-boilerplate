@@ -1,3 +1,40 @@
 {
-  "extends": ["@astral/eslint-config-react-ts"]
+  "extends": ["@astral/eslint-config-react-ts"],
+  "rules": {
+    "import/order": [
+      "error",
+      {
+        "pathGroups": [
+          {
+            "pattern": "common/**",
+            "group": "internal",
+            "position": "after"
+          },
+          {
+            "pattern": "config/**",
+            "group": "internal",
+            "position": "after"
+          },
+          {
+            "pattern": "images/**",
+            "group": "internal",
+            "position": "after"
+          }
+        ],
+        "newlines-between": "always",
+        "pathGroupsExcludedImportTypes": [
+          "internal"
+        ],
+        "groups": [
+          "builtin",
+          "external",
+          "internal",
+          "parent",
+          "sibling",
+          "object",
+          "index"
+        ]
+      }
+    ]
+  }
 }

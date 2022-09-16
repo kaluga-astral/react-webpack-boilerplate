@@ -1,4 +1,3 @@
-import logoSrc from 'images/logo.png';
 import { BrowserRouter, Route, RouterLink, Routes } from 'common/router';
 import {
   DashboardLayout,
@@ -10,6 +9,8 @@ import {
   ThemeProvider,
 } from 'common/ui';
 import { ProfileOutlineMd, QuitOutlineMd } from 'common/icons';
+
+import logoSrc from 'images/logo.png';
 
 import { theme } from './config/theme';
 import MainPage from './pages/main';

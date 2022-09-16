@@ -1,5 +1,6 @@
 import { Typography } from '@astral/ui';
 import { API_URL } from 'config';
+
 import { ArrowIcon } from 'common/icons';
 
 import { UserInfo } from './UserInfo';

@@ -8,3 +8,5 @@ export {
   Menu,
   MenuItem,
 } from '@astral/ui';
+
+export * from './Badge';
