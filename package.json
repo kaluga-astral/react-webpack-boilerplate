@@ -8,8 +8,8 @@
     "lint": "eslint \"**/*.{ts,tsx}\" --fix --quiet",
     "lint:styles": "stylelint \"**/*.{ts,tsx}\" --fix",
     "tests": "jest",
-    "test:components:dev": "cypress open --component --browser chrome --config-file cypress/cypress.config.mjs",
-    "test:components": "cypress run --browser chrome --component --config-file cypress/cypress.config.mjs"
+    "test:components:dev": "cypress open --component --browser chrome --config-file cypress/cypress.config.js",
+    "test:components": "cypress run --browser chrome --component --config-file cypress/cypress.config.js"
   },
   "dependencies": {
     "@astral/ui": "^1.3.0",
