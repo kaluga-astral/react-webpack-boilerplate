@@ -1,0 +1,1 @@
+export { OwnerDTO } from '../../sources';

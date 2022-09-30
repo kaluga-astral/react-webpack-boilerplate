@@ -51,5 +51,5 @@ module.exports = (_, { mode }) =>
     useBundleAnalyzer({ enabled: false }),
   )({
     target: 'web',
-    entry: path.resolve(__dirname, 'src', 'index.tsx'),
+    entry: path.resolve(__dirname, 'src', 'main.tsx'),
   });
