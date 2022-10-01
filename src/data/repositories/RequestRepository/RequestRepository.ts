@@ -3,10 +3,10 @@ import {
   LocalStorageService,
   QueryClient,
   QueryClientCache,
-  RepositoryFetchParams,
   localStorageService,
 } from '@example/shared';
 
+import { RepositoryFetchParams } from '../types';
 import {
   RequestNetworkSources,
   createRequestNetworkSources,

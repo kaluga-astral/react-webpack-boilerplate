@@ -4,7 +4,13 @@ import {
   RequestNetworkInputDTO,
 } from '../../sources';
 
-export type RequestFullInfoDTO = Omit<RequestNetworkDTO, 'ownerID'> & {
+import { RequestStatus } from './enums';
+
+export type RequestFullInfoDTO = Omit<
+  RequestNetworkDTO,
+  'ownerID' | 'status'
+> & {
+  status: RequestStatus;
   owner: OwnerNetworkDTO;
 };
 

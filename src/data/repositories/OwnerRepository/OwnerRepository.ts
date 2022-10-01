@@ -1,6 +1,7 @@
-import { HttpService, QueryClient, QueryClientCache } from '@example/shared';
+import { HttpService, QueryClient } from '@example/shared';
 
 import { OwnerNetworkSources, createOwnerNetworkSources } from '../../sources';
+import { RepositoryFetchParams } from '../types';
 
 import { OwnerDTO } from './dto';
 
@@ -21,12 +22,12 @@ export class OwnerRepository {
    * */
   public getOwnerInfo = async (
     ownerID: string,
-    cacheTime?: QueryClientCache,
+    params?: RepositoryFetchParams,
   ): Promise<OwnerDTO> =>
     this.queryClient.fetchQuery(
       [Symbol()],
       () => this.ownerNetworkSources.getInfo(ownerID),
-      { cacheTime },
+      params?.cache,
     );
 }
 

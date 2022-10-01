@@ -1,9 +1,6 @@
-import {
-  HttpService,
-  QueryClient,
-  RepositoryFetchParams,
-} from '@example/shared';
+import { HttpService, QueryClient } from '@example/shared';
 
+import { RepositoryFetchParams } from '../types';
 import {
   UserContactNetworkDTO,
   UserNetworkSources,
