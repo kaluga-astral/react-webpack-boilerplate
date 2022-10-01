@@ -3,6 +3,8 @@ export type Config = {
 };
 
 export class ConfigService {
+  private _config: Config | undefined;
+
   constructor() {
     this.config = {} as Config;
   }
@@ -12,15 +14,15 @@ export class ConfigService {
   }
 
   get config(): Config {
-    if (!this.config) {
+    if (!this._config) {
       throw Error('ConfigService is not initialized');
     }
 
-    return this.config;
+    return this._config;
   }
 
   set config(config: Config) {
-    this.config = config;
+    this._config = config;
   }
 }
 

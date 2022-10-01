@@ -33,6 +33,12 @@
       ],
       "@example/widgets": [
         "./src/widgets"
+      ],
+      "images/*": [
+        "./public/images/*"
+      ],
+      "icons/*": [
+        "./public/images/icons/*"
       ]
     },
   },

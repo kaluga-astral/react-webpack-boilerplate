@@ -1,6 +1,5 @@
 import {
   APP_ROUTES,
-  AppRoute,
   DashboardLayout,
   ProfileOutlineMd,
   RouterLink,
@@ -15,24 +14,24 @@ export const Sidebar = () => {
       menu={{
         items: [
           [
-            String(AppRoute.RequestsList),
+            APP_ROUTES.draftRequestList,
             {
               icon: <ProfileOutlineMd />,
               text: 'Заявки',
-              active: location.pathname === APP_ROUTES[AppRoute.RequestsList],
+              active: location.pathname === APP_ROUTES.draftRequestList,
               component: (props) => (
-                <RouterLink to={APP_ROUTES[AppRoute.RequestsList]} {...props} />
+                <RouterLink to={APP_ROUTES.draftRequestList} {...props} />
               ),
             },
           ],
           [
-            String(AppRoute.Owners),
+            APP_ROUTES.owners,
             {
               icon: <ProfileOutlineMd />,
               text: 'Владельцы',
-              active: location.pathname === APP_ROUTES[AppRoute.Owners],
+              active: location.pathname === APP_ROUTES.owners,
               component: (props) => (
-                <RouterLink to={APP_ROUTES[AppRoute.Owners]} {...props} />
+                <RouterLink to={APP_ROUTES.owners} {...props} />
               ),
             },
           ],

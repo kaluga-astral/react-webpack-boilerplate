@@ -52,4 +52,6 @@ module.exports = (_, { mode }) =>
   )({
     target: 'web',
     entry: path.resolve(__dirname, 'src', 'main.tsx'),
+    // убирает warnings из за отключения проверки типов в babel-loader
+    ignoreWarnings: [/export .* was not found in/],
   });
