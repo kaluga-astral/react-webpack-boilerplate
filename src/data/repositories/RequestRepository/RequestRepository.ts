@@ -3,6 +3,7 @@ import {
   LocalStorageService,
   QueryClient,
   QueryClientCache,
+  RepositoryFetchParams,
   localStorageService,
 } from '@example/shared';
 
@@ -32,9 +33,9 @@ export class RequestRepository {
   /**
    * @description Получение полной информации о заявке
    * */
-  public getRequestFullInfoDTO = async (
+  public getRequestFullInfo = async (
     requestID: string,
-    cacheTime?: QueryClientCache,
+    params?: RepositoryFetchParams,
   ): Promise<RequestFullInfoDTO> =>
     this.queryClient.fetchQuery(
       [requestID],
@@ -47,7 +48,7 @@ export class RequestRepository {
           owner,
         };
       },
-      { cacheTime },
+      params?.cache,
     );
 
   public getRequestInfo = (requestID: string, cacheTime?: QueryClientCache) =>

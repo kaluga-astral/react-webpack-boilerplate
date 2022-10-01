@@ -1,4 +1,8 @@
-import { HttpService, QueryClient, QueryClientCache } from '@example/shared';
+import {
+  HttpService,
+  QueryClient,
+  RepositoryFetchParams,
+} from '@example/shared';
 
 import {
   UserContactInfoDTO,
@@ -25,7 +29,7 @@ export class UserRepository {
    * @description Получение полной информации о юзере
    * */
   public getFullInfo = async (
-    cacheTime?: QueryClientCache,
+    params?: RepositoryFetchParams,
   ): Promise<UserFullInfoDTO> =>
     this.queryClient.fetchQuery(
       [Symbol()],
@@ -37,25 +41,25 @@ export class UserRepository {
 
         return { ...contactInfo, ...personInfo };
       },
-      { cacheTime },
+      params?.cache,
     );
 
   public getContactInfo = (
-    cacheTime?: QueryClientCache,
+    params?: RepositoryFetchParams,
   ): Promise<UserContactInfoDTO> =>
     this.queryClient.fetchQuery(
       [Symbol()],
       this.userDataSources.getContactInfo,
-      { cacheTime },
+      params?.cache,
     );
 
   public getPersonInfo = (
-    cacheTime?: QueryClientCache,
+    params?: RepositoryFetchParams,
   ): Promise<UserPersonInfoDTO> =>
     this.queryClient.fetchQuery(
       [Symbol()],
       this.userDataSources.getPersonInfo,
-      { cacheTime },
+      params?.cache,
     );
 }
 

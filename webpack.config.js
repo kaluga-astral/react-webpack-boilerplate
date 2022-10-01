@@ -17,7 +17,7 @@ const {
   useFavicons,
   useBundleAnalyzer,
   useSvgr,
-} = require('./webpack');
+} = require('./config/webpack');
 
 const { ENV_NAME = 'local' } = process.env;
 

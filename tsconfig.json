@@ -40,7 +40,7 @@
       "icons/*": [
         "./public/images/icons/*"
       ]
-    },
+    }
   },
   "include": ["./src/**/*.ts", "./src/**/*.tsx", "./global.d.ts"]
 }
