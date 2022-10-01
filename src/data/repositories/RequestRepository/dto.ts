@@ -6,11 +6,11 @@ import {
 
 import { RequestStatus } from './enums';
 
-export type RequestFullInfoDTO = Omit<
-  RequestNetworkDTO,
-  'ownerID' | 'status'
-> & {
+export type RequestDTO = Omit<RequestNetworkDTO, 'status'> & {
   status: RequestStatus;
+};
+
+export type RequestFullInfoDTO = Omit<RequestDTO, 'ownerID'> & {
   owner: OwnerNetworkDTO;
 };
 

@@ -13,7 +13,7 @@ import {
 } from '../../sources';
 import { OwnerRepository } from '../OwnerRepository';
 
-import { RequestFullInfoDTO, RequestStoreInputDTO } from './dto';
+import { RequestDTO, RequestFullInfoDTO, RequestStoreInputDTO } from './dto';
 
 /**
  * @description Repository для работы с даннми заявке
@@ -39,8 +39,8 @@ export class RequestRepository {
   public getRequestFullInfo = async (
     requestID: string,
     params?: RepositoryFetchParams,
-  ): Promise<RequestFullInfoDTO> =>
-    this.queryClient.fetchQuery(
+  ) =>
+    this.queryClient.fetchQuery<RequestFullInfoDTO>(
       [requestID],
       async () => {
         const { ownerID, ...request } = await this.getRequestInfo(requestID);
@@ -55,7 +55,7 @@ export class RequestRepository {
     );
 
   public getRequestInfo = (requestID: string, cacheTime?: QueryClientCache) =>
-    this.queryClient.fetchQuery(
+    this.queryClient.fetchQuery<RequestDTO>(
       [requestID],
       () => this.requestNetworkSources.getRequestInfo(requestID),
       { cacheTime },

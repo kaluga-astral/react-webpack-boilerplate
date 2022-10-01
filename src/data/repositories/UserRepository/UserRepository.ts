@@ -8,6 +8,7 @@ import {
   createUserNetworkSources,
 } from '../../sources';
 
+import { getUserFullName } from './utils';
 import { UserFullInfoDTO } from './dto';
 
 /**
@@ -25,10 +26,8 @@ export class UserRepository {
   /**
    * @description Получение полной информации о юзере
    * */
-  public getFullInfo = async (
-    params?: RepositoryFetchParams,
-  ): Promise<UserFullInfoDTO> =>
-    this.queryClient.fetchQuery(
+  public getFullInfo = async (params?: RepositoryFetchParams) =>
+    this.queryClient.fetchQuery<UserFullInfoDTO>(
       [Symbol()],
       async () => {
         const [contactInfo, personInfo] = await Promise.all([
@@ -36,24 +35,24 @@ export class UserRepository {
           this.getPersonInfo(),
         ]);
 
-        return { ...contactInfo, ...personInfo };
+        return {
+          ...contactInfo,
+          ...personInfo,
+          fullName: getUserFullName(personInfo),
+        };
       },
       params?.cache,
     );
 
-  public getContactInfo = (
-    params?: RepositoryFetchParams,
-  ): Promise<UserContactNetworkDTO> =>
-    this.queryClient.fetchQuery(
+  public getContactInfo = (params?: RepositoryFetchParams) =>
+    this.queryClient.fetchQuery<UserContactNetworkDTO>(
       [Symbol()],
       this.userNetworkSources.getContactInfo,
       params?.cache,
     );
 
-  public getPersonInfo = (
-    params?: RepositoryFetchParams,
-  ): Promise<UserPersonNetworkDTO> =>
-    this.queryClient.fetchQuery(
+  public getPersonInfo = (params?: RepositoryFetchParams) =>
+    this.queryClient.fetchQuery<UserPersonNetworkDTO>(
       [Symbol()],
       this.userNetworkSources.getPersonInfo,
       params?.cache,

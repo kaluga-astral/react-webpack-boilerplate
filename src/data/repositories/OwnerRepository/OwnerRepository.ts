@@ -23,8 +23,8 @@ export class OwnerRepository {
   public getOwnerInfo = async (
     ownerID: string,
     params?: RepositoryFetchParams,
-  ): Promise<OwnerDTO> =>
-    this.queryClient.fetchQuery(
+  ) =>
+    this.queryClient.fetchQuery<OwnerDTO>(
       [Symbol()],
       () => this.ownerNetworkSources.getInfo(ownerID),
       params?.cache,

@@ -4,7 +4,7 @@ export type UserContactNetworkDTO = {
 };
 
 export type UserPersonNetworkDTO = {
-  name?: string;
-  surname?: string;
+  name: string;
+  surname: string;
   displayName: string;
 };
