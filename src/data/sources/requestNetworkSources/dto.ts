@@ -1,4 +1,4 @@
-export type RequestDTO = {
+export type RequestNetworkDTO = {
   id: string;
   status: number;
   ownerID: string;
@@ -7,13 +7,13 @@ export type RequestDTO = {
   updatedDate: string;
 };
 
-export type RequestInputDTO = {
+export type RequestNetworkInputDTO = {
   id: string;
   ownerID: string;
   description: string;
 };
 
-export type RequestListDTO = {
-  list: RequestDTO[];
+export type RequestListNetworkDTO = {
+  list: RequestNetworkDTO[];
   total: number;
 };

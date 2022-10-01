@@ -1,3 +1,3 @@
-import { UserContactInfoDTO, UserPersonInfoDTO } from '../../sources';
+import { UserContactNetworkDTO, UserPersonNetworkDTO } from '../../sources';
 
-export type UserFullInfoDTO = UserPersonInfoDTO & UserContactInfoDTO;
+export type UserFullInfoDTO = UserPersonNetworkDTO & UserContactNetworkDTO;

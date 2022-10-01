@@ -1,5 +1,5 @@
-export * from './requestDataSources';
+export * from './requestNetworkSources';
 
-export * from './userDataSources';
+export * from './userNetworkSources';
 
-export * from './ownerDataSources';
+export * from './ownerNetworkSources';

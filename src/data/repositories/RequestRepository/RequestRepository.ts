@@ -7,7 +7,10 @@ import {
   localStorageService,
 } from '@example/shared';
 
-import { RequestDataSources, createRequestDataSources } from '../../sources';
+import {
+  RequestNetworkSources,
+  createRequestNetworkSources,
+} from '../../sources';
 import { OwnerRepository } from '../OwnerRepository';
 
 import { RequestFullInfoDTO, RequestStoreInputDTO } from './dto';
@@ -19,12 +22,12 @@ export class RequestRepository {
   private readonly requestStoreID = 'request';
 
   constructor(
-    private readonly requestDataSources: RequestDataSources,
+    private readonly requestNetworkSources: RequestNetworkSources,
     private readonly ownerRepository: OwnerRepository,
     private readonly storageService: LocalStorageService,
     private readonly queryClient: QueryClient,
   ) {
-    this.requestDataSources = requestDataSources;
+    this.requestNetworkSources = requestNetworkSources;
     this.ownerRepository = ownerRepository;
     this.storageService = storageService;
     this.queryClient = queryClient;
@@ -54,7 +57,7 @@ export class RequestRepository {
   public getRequestInfo = (requestID: string, cacheTime?: QueryClientCache) =>
     this.queryClient.fetchQuery(
       [requestID],
-      () => this.requestDataSources.getRequestInfo(requestID),
+      () => this.requestNetworkSources.getRequestInfo(requestID),
       { cacheTime },
     );
 
@@ -70,7 +73,7 @@ export const initRequestRepository = (
   queryClient: QueryClient,
 ) => {
   requestRepository = new RequestRepository(
-    createRequestDataSources(httpService),
+    createRequestNetworkSources(httpService),
     ownerRepository,
     localStorageService,
     queryClient,

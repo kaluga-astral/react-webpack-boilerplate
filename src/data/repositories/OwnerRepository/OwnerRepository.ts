@@ -1,6 +1,6 @@
 import { HttpService, QueryClient, QueryClientCache } from '@example/shared';
 
-import { OwnerDataSources, createOwnerDataSources } from '../../sources';
+import { OwnerNetworkSources, createOwnerNetworkSources } from '../../sources';
 
 import { OwnerDTO } from './dto';
 
@@ -9,10 +9,10 @@ import { OwnerDTO } from './dto';
  * */
 export class OwnerRepository {
   constructor(
-    private readonly ownerDataSources: OwnerDataSources,
+    private readonly ownerNetworkSources: OwnerNetworkSources,
     private readonly queryClient: QueryClient,
   ) {
-    this.ownerDataSources = ownerDataSources;
+    this.ownerNetworkSources = ownerNetworkSources;
     this.queryClient = queryClient;
   }
 
@@ -25,7 +25,7 @@ export class OwnerRepository {
   ): Promise<OwnerDTO> =>
     this.queryClient.fetchQuery(
       [Symbol()],
-      () => this.ownerDataSources.getInfo(ownerID),
+      () => this.ownerNetworkSources.getInfo(ownerID),
       { cacheTime },
     );
 }
@@ -37,7 +37,7 @@ export const initOwnerRepository = (
   queryClient: QueryClient,
 ) => {
   ownerRepository = new OwnerRepository(
-    createOwnerDataSources(httpService),
+    createOwnerNetworkSources(httpService),
     queryClient,
   );
 };

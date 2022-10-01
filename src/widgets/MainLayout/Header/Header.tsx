@@ -12,13 +12,11 @@ import {
   ProfileOutlineMd,
   QuitOutlineMd,
 } from '@example/shared';
-import { UserRepository, userRepository } from '@example/data';
+import { userRepository } from '@example/data';
 
 import { HeaderStore } from './store';
 
 export const Header = observer(() => {
-  const userRepository = useRepository(new UserRepository(), { cahe: 0 });
-
   const [store] = useState(() => new HeaderStore(userRepository));
 
   useEffect(() => {

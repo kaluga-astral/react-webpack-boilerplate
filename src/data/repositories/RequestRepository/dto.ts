@@ -1,9 +1,13 @@
-import { OwnerDTO, RequestDTO, RequestInputDTO } from '../../sources';
+import {
+  OwnerNetworkDTO,
+  RequestNetworkDTO,
+  RequestNetworkInputDTO,
+} from '../../sources';
 
-export type RequestFullInfoDTO = Omit<RequestDTO, 'ownerID'> & {
-  owner: OwnerDTO;
+export type RequestFullInfoDTO = Omit<RequestNetworkDTO, 'ownerID'> & {
+  owner: OwnerNetworkDTO;
 };
 
-export type EditRequestInputDTO = RequestInputDTO;
+export type EditRequestInputDTO = RequestNetworkInputDTO;
 
 export type RequestStoreInputDTO = EditRequestInputDTO;

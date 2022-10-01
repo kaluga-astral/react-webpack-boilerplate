@@ -5,7 +5,7 @@ import { RequestRepository } from './RequestRepository';
 describe('RequestRepository.getRequestFullInfo', () => {
   const queryClient = createQueryClient();
 
-  it('Возвращает смерженый requestDTO и ownerDTO', async () => {
+  it('Возвращает смерженый RequestNetworkDTO и OwnerNetworkDTO', async () => {
     const owner = {
       name: 'name',
       surname: 'name',

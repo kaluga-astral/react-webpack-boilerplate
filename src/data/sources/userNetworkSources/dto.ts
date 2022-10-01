@@ -1,9 +1,9 @@
-export type UserContactInfoDTO = {
+export type UserContactNetworkDTO = {
   email?: string;
   phone: string;
 };
 
-export type UserPersonInfoDTO = {
+export type UserPersonNetworkDTO = {
   name?: string;
   surname?: string;
   displayName: string;

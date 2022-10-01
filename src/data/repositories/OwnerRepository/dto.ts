@@ -1,1 +1,1 @@
-export { OwnerDTO } from '../../sources';
+export { OwnerNetworkDTO as OwnerDTO } from '../../sources';

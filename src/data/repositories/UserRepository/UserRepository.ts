@@ -5,10 +5,10 @@ import {
 } from '@example/shared';
 
 import {
-  UserContactInfoDTO,
-  UserDataSources,
-  UserPersonInfoDTO,
-  createUserDataSources,
+  UserContactNetworkDTO,
+  UserNetworkSources,
+  UserPersonNetworkDTO,
+  createUserNetworkSources,
 } from '../../sources';
 
 import { UserFullInfoDTO } from './dto';
@@ -18,10 +18,10 @@ import { UserFullInfoDTO } from './dto';
  * */
 export class UserRepository {
   constructor(
-    private readonly userDataSources: UserDataSources,
+    private readonly userNetworkSources: UserNetworkSources,
     private readonly queryClient: QueryClient,
   ) {
-    this.userDataSources = userDataSources;
+    this.userNetworkSources = userNetworkSources;
     this.queryClient = queryClient;
   }
 
@@ -46,19 +46,19 @@ export class UserRepository {
 
   public getContactInfo = (
     params?: RepositoryFetchParams,
-  ): Promise<UserContactInfoDTO> =>
+  ): Promise<UserContactNetworkDTO> =>
     this.queryClient.fetchQuery(
       [Symbol()],
-      this.userDataSources.getContactInfo,
+      this.userNetworkSources.getContactInfo,
       params?.cache,
     );
 
   public getPersonInfo = (
     params?: RepositoryFetchParams,
-  ): Promise<UserPersonInfoDTO> =>
+  ): Promise<UserPersonNetworkDTO> =>
     this.queryClient.fetchQuery(
       [Symbol()],
-      this.userDataSources.getPersonInfo,
+      this.userNetworkSources.getPersonInfo,
       params?.cache,
     );
 }
@@ -70,7 +70,7 @@ export const initUserRepository = (
   queryClient: QueryClient,
 ) => {
   userRepository = new UserRepository(
-    createUserDataSources(httpService),
+    createUserNetworkSources(httpService),
     queryClient,
   );
 };
