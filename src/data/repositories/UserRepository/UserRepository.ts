@@ -8,7 +8,6 @@ import {
   createUserNetworkSources,
 } from '../../sources';
 
-import { getUserFullName } from './utils';
 import { UserFullInfoDTO } from './dto';
 
 /**
@@ -38,7 +37,6 @@ export class UserRepository {
         return {
           ...contactInfo,
           ...personInfo,
-          fullName: getUserFullName(personInfo),
         };
       },
       params?.cache,

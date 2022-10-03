@@ -5,6 +5,6 @@ import { QueryClientCache } from './enums';
 export type QueryClientNetworkMode = NetworkMode;
 
 export type QueryClientCacheParams = {
-  cacheTime: QueryClientCache;
-  networkMode: QueryClientNetworkMode;
+  cacheTime?: QueryClientCache;
+  networkMode?: QueryClientNetworkMode;
 };

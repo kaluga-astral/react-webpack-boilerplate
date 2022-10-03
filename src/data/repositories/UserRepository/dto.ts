@@ -1,4 +1,3 @@
 import { UserContactNetworkDTO, UserPersonNetworkDTO } from '../../sources';
 
-export type UserFullInfoDTO = UserPersonNetworkDTO &
-  UserContactNetworkDTO & { fullName: string };
+export type UserFullInfoDTO = UserPersonNetworkDTO & UserContactNetworkDTO;
