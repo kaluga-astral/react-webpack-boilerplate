@@ -16,6 +16,8 @@
   "dependencies": {
     "mobx": "^6.6.2",
     "react-use": "^17.4.0",
+    "yup": "^0.32.11",
+    "@hookform/resolvers": "^2.9.8",
     "axios": "^0.27.2",
     "query-string": "^7.1.1",
     "@types/query-string": "^6.3.0",

@@ -1,7 +1,3 @@
-import { DataGrid } from '@example/shared';
-
-export type RequestTableProps = {};
-
-export const RequestTable = ({}: RequestTableProps) => {
-  return <DataGrid></DataGrid>;
+export const RequestTable = () => {
+  return <div>table</div>;
 };

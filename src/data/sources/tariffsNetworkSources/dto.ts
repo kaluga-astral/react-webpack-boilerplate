@@ -1,7 +1,7 @@
 export type TariffNetworkDTO = {
   id: string;
   name: string;
-  price: string;
+  price: number;
   description: string;
 };
 

@@ -10,6 +10,7 @@ export {
   Placeholder,
   ContentState,
   Autocomplete,
+  Typography,
   AutocompleteProps,
 } from '@astral/ui';
 
@@ -21,4 +22,5 @@ export {
   Route,
   useLocation,
   useNavigate,
+  NavigateFunction,
 } from 'react-router-dom';

@@ -2,7 +2,6 @@ import {
   HttpService,
   LocalStorageService,
   QueryClient,
-  QueryClientCache,
   localStorageService,
 } from '@example/shared';
 
@@ -13,7 +12,12 @@ import {
 } from '../../sources';
 import { OwnerRepository } from '../OwnerRepository';
 
-import { RequestDTO, RequestFullInfoDTO, RequestStoreInputDTO } from './dto';
+import {
+  CreateDraftRequestInputDTO,
+  RequestDTO,
+  RequestFullInfoDTO,
+  RequestStoreInputDTO,
+} from './dto';
 
 /**
  * @description Repository для работы с даннми заявке
@@ -54,12 +58,16 @@ export class RequestRepository {
       params?.cache,
     );
 
-  public getRequestInfo = (requestID: string, cacheTime?: QueryClientCache) =>
+  public getRequestInfo = (requestID: string, params?: RepositoryFetchParams) =>
     this.queryClient.fetchQuery<RequestDTO>(
       [requestID],
       () => this.requestNetworkSources.getRequestInfo(requestID),
-      { cacheTime },
+      params?.cache,
     );
+
+  public createDraftRequest = (
+    data: CreateDraftRequestInputDTO,
+  ): Promise<string> => this.requestNetworkSources.createDraftRequest(data);
 
   public saveRequestToStore = (request: RequestStoreInputDTO) =>
     this.storageService.setItem(this.requestStoreID, JSON.stringify(request));

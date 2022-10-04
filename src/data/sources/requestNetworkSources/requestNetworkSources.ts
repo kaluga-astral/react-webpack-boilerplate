@@ -1,12 +1,21 @@
 import { HttpService } from '@example/shared';
 
-import { RequestNetworkDTO, RequestNetworkInputDTO } from './dto';
+import {
+  CreateDraftRequestNetworkInputDTO,
+  RequestNetworkDTO,
+  RequestNetworkInputDTO,
+} from './dto';
 
 export const createRequestNetworkSources = (httpService: HttpService) => ({
   getRequestInfo: (requestID: string) =>
     httpService.get<void, RequestNetworkDTO>(`/request/${requestID}`),
-  editRequest: (request: RequestNetworkInputDTO) =>
-    httpService.put<void, void>('/request', request),
+  createDraftRequest: (data: CreateDraftRequestNetworkInputDTO) =>
+    httpService.post<CreateDraftRequestNetworkInputDTO, string>(
+      '/request',
+      data,
+    ),
+  editRequest: (data: RequestNetworkInputDTO) =>
+    httpService.put<void, void>('/request', data),
 });
 
 export type RequestNetworkSources = ReturnType<

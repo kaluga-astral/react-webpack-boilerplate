@@ -28,5 +28,17 @@ export function FormAutocomplete<
   const { field, fieldState } = useFormController(props);
   const errorProps = useFieldErrorProps(fieldState);
 
-  return <Autocomplete {...field} {...props} {...errorProps} />;
+  // eslint-disable-next-line
+  const handleChange: any = (_: any, value: Option | Option[]) => {
+    field.onChange(value);
+  };
+
+  return (
+    <Autocomplete
+      {...field}
+      {...props}
+      {...errorProps}
+      onChange={handleChange}
+    />
+  );
 }

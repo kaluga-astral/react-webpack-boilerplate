@@ -2,7 +2,7 @@ import { makeAutoObservable, runInAction } from 'mobx';
 
 import { RepositoryCache, TariffDTO, TariffRepository } from '@example/data';
 
-export type TariffAutocompleteOption = Pick<TariffDTO, 'name' | 'id'>;
+export type TariffAutocompleteOption = Pick<TariffDTO, 'name' | 'id' | 'price'>;
 
 export class TariffAutocompleteStore {
   public isLoading = false;
@@ -24,7 +24,11 @@ export class TariffAutocompleteStore {
       });
 
       runInAction(() => {
-        this.options = result.data.map(({ name, id }) => ({ name, id }));
+        this.options = result.data.map(({ name, id, price }) => ({
+          name,
+          id,
+          price,
+        }));
       });
     } catch (err) {
       runInAction(() => {

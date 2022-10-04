@@ -7,6 +7,11 @@ export type RequestNetworkDTO = {
   updatedDate: string;
 };
 
+export type CreateDraftRequestNetworkInputDTO = {
+  tariffID: string;
+  description: string;
+};
+
 export type RequestNetworkInputDTO = {
   id: string;
   ownerID: string;

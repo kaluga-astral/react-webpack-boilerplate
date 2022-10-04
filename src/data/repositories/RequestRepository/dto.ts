@@ -1,4 +1,5 @@
 import {
+  CreateDraftRequestNetworkInputDTO,
   OwnerNetworkDTO,
   RequestNetworkDTO,
   RequestNetworkInputDTO,
@@ -17,3 +18,5 @@ export type RequestFullInfoDTO = Omit<RequestDTO, 'ownerID'> & {
 export type EditRequestInputDTO = RequestNetworkInputDTO;
 
 export type RequestStoreInputDTO = EditRequestInputDTO;
+
+export type CreateDraftRequestInputDTO = CreateDraftRequestNetworkInputDTO;

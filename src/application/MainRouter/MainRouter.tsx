@@ -8,12 +8,23 @@ const DraftRequestListScreen = lazy(
 const FormedRequestListScreen = lazy(
   () => import('../../screens/FormedRequestList'),
 );
+const CreateDraftRequestScreen = lazy(
+  () => import('../../screens/CreateDraftRequest'),
+);
 
 export const MainRouter = () => {
   return (
     <Routes>
       <Route
-        path={APP_ROUTES.draftRequestList}
+        path={APP_ROUTES.createDraftRequest.route}
+        element={
+          <Suspense fallback={<ContentState isLoading>loading</ContentState>}>
+            <CreateDraftRequestScreen />
+          </Suspense>
+        }
+      />
+      <Route
+        path={APP_ROUTES.draftRequestList.route}
         element={
           <Suspense fallback={<ContentState isLoading>loading</ContentState>}>
             <DraftRequestListScreen />
@@ -21,7 +32,7 @@ export const MainRouter = () => {
         }
       />
       <Route
-        path={APP_ROUTES.formedRequestList}
+        path={APP_ROUTES.formedRequestList.route}
         element={
           <Suspense fallback={<ContentState isLoading>loading</ContentState>}>
             <FormedRequestListScreen />
