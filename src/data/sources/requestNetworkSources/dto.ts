@@ -2,6 +2,7 @@ export type RequestNetworkDTO = {
   id: string;
   status: number;
   ownerID: string;
+  tariffID: string;
   description: string;
   createdDate: string;
   updatedDate: string;
@@ -12,9 +13,9 @@ export type CreateDraftRequestNetworkInputDTO = {
   description: string;
 };
 
-export type RequestNetworkInputDTO = {
+export type EditDraftRequestNetworkInputDTO = {
   id: string;
-  ownerID: string;
+  tariffID: string;
   description: string;
 };
 

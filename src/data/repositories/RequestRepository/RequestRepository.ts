@@ -11,12 +11,15 @@ import {
   createRequestNetworkSources,
 } from '../../sources';
 import { OwnerRepository } from '../OwnerRepository';
+import { TariffDTO, TariffRepository } from '../TariffRepository';
 
 import {
   CreateDraftRequestInputDTO,
+  EditRequestInputDTO,
   RequestDTO,
   RequestFullInfoDTO,
   RequestStoreInputDTO,
+  RequestWithTariffDTO,
 } from './dto';
 
 /**
@@ -28,11 +31,13 @@ export class RequestRepository {
   constructor(
     private readonly requestNetworkSources: RequestNetworkSources,
     private readonly ownerRepository: OwnerRepository,
+    private readonly tariffRepository: TariffRepository,
     private readonly storageService: LocalStorageService,
     private readonly queryClient: QueryClient,
   ) {
     this.requestNetworkSources = requestNetworkSources;
     this.ownerRepository = ownerRepository;
+    this.tariffRepository = tariffRepository;
     this.storageService = storageService;
     this.queryClient = queryClient;
   }
@@ -65,9 +70,34 @@ export class RequestRepository {
       params?.cache,
     );
 
+  public getRequestWithTariff = async (
+    requestID: string,
+    params?: RepositoryFetchParams,
+  ) =>
+    this.queryClient.fetchQuery<RequestWithTariffDTO>(
+      [requestID],
+      async () => {
+        const [request, tariffs] = await Promise.all([
+          this.getRequestInfo(requestID),
+          this.tariffRepository.getTariffs(),
+        ]);
+
+        const { tariffID, ...requestData } = request;
+
+        return {
+          ...requestData,
+          tariff: tariffs.data.find(({ id }) => id === tariffID) as TariffDTO,
+        };
+      },
+      params?.cache,
+    );
+
   public createDraftRequest = (
     data: CreateDraftRequestInputDTO,
   ): Promise<string> => this.requestNetworkSources.createDraftRequest(data);
+
+  public editDraftRequest = (data: EditRequestInputDTO): Promise<void> =>
+    this.requestNetworkSources.editRequest(data);
 
   public saveRequestToStore = (request: RequestStoreInputDTO) =>
     this.storageService.setItem(this.requestStoreID, JSON.stringify(request));
@@ -78,11 +108,13 @@ export let requestRepository: RequestRepository;
 export const initRequestRepository = (
   httpService: HttpService,
   ownerRepository: OwnerRepository,
+  tariffRepository: TariffRepository,
   queryClient: QueryClient,
 ) => {
   requestRepository = new RequestRepository(
     createRequestNetworkSources(httpService),
     ownerRepository,
+    tariffRepository,
     localStorageService,
     queryClient,
   );

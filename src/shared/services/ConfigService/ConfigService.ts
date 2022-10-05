@@ -3,26 +3,26 @@ export type Config = {
 };
 
 export class ConfigService {
-  private _config: Config | undefined;
+  #config: Config | undefined;
 
   constructor() {
     this.config = {} as Config;
   }
 
-  init(config: Partial<Config>) {
+  init(config: Config) {
     this.config = config as Config;
   }
 
   get config(): Config {
-    if (!this._config) {
+    if (!this.#config) {
       throw Error('ConfigService is not initialized');
     }
 
-    return this._config;
+    return this.#config;
   }
 
   set config(config: Config) {
-    this._config = config;
+    this.#config = config;
   }
 }
 

@@ -1,9 +1,10 @@
 import {
   CreateDraftRequestNetworkInputDTO,
+  EditDraftRequestNetworkInputDTO,
   OwnerNetworkDTO,
   RequestNetworkDTO,
-  RequestNetworkInputDTO,
 } from '../../sources';
+import { TariffDTO } from '../TariffRepository';
 
 import { RequestStatus } from './enums';
 
@@ -15,8 +16,12 @@ export type RequestFullInfoDTO = Omit<RequestDTO, 'ownerID'> & {
   owner: OwnerNetworkDTO;
 };
 
-export type EditRequestInputDTO = RequestNetworkInputDTO;
+export type EditRequestInputDTO = EditDraftRequestNetworkInputDTO;
 
 export type RequestStoreInputDTO = EditRequestInputDTO;
 
 export type CreateDraftRequestInputDTO = CreateDraftRequestNetworkInputDTO;
+
+export type RequestWithTariffDTO = Omit<RequestDTO, 'tariffID'> & {
+  tariff: TariffDTO;
+};

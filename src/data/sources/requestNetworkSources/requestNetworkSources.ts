@@ -2,8 +2,8 @@ import { HttpService } from '@example/shared';
 
 import {
   CreateDraftRequestNetworkInputDTO,
+  EditDraftRequestNetworkInputDTO,
   RequestNetworkDTO,
-  RequestNetworkInputDTO,
 } from './dto';
 
 export const createRequestNetworkSources = (httpService: HttpService) => ({
@@ -14,7 +14,7 @@ export const createRequestNetworkSources = (httpService: HttpService) => ({
       '/request',
       data,
     ),
-  editRequest: (data: RequestNetworkInputDTO) =>
+  editRequest: (data: EditDraftRequestNetworkInputDTO) =>
     httpService.put<void, void>('/request', data),
 });
 

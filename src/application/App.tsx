@@ -6,7 +6,7 @@ import { MainRouter } from './MainRouter';
 import { initRepositories } from './data';
 
 configService.init({
-  apiUrl: process.env.API_URL,
+  apiUrl: process.env.API_URL as string,
 });
 
 // Инициализация слоя получения данных
