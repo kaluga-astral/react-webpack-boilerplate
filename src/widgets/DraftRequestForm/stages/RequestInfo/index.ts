@@ -1,4 +1,1 @@
-export {
-  RequestInfoStage as default,
-  RequestInfoStageValues,
-} from './RequestInfo';
+export { RequestInfoStage as default } from './RequestInfo';

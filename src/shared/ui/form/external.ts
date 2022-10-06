@@ -7,5 +7,6 @@ export {
   FormTextArea,
   WithFormFieldProps,
   SubmitButton,
+  useWatch as useFormWatch,
   useFieldErrorProps,
 } from '@astral/form';
