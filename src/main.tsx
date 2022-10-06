@@ -6,7 +6,7 @@ import { App } from './application';
 const rootElement = document.getElementById('root');
 
 if (!rootElement) {
-  throw Error('root element is not find');
+  throw Error('React root element is not find');
 }
 
 createRoot(rootElement).render(
