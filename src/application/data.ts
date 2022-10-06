@@ -4,6 +4,7 @@ import {
   initTariffRepository,
   initUserRepository,
   ownerRepository,
+  tariffRepository,
 } from '@example/data';
 import {
   configService,
@@ -21,7 +22,14 @@ export const initRepositories = () => {
   const queryClient = createQueryClient();
 
   initOwnerRepository(apiHttpService, queryClient);
-  initRequestRepository(apiHttpService, ownerRepository, queryClient);
+
+  initRequestRepository(
+    apiHttpService,
+    ownerRepository,
+    tariffRepository,
+    queryClient,
+  );
+
   initUserRepository(apiHttpService, queryClient);
   initTariffRepository(apiHttpService, queryClient);
 };

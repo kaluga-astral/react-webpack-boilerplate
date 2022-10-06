@@ -3,7 +3,7 @@ import { HttpService, QueryClient } from '@example/shared';
 import { RepositoryFetchParams } from '../types';
 import {
   TariffsNetworkSources,
-  createTariffsNetworkSources,
+  createTariffsNetworkStubSources,
 } from '../../sources';
 
 import { TariffListDTO } from './dto';
@@ -38,7 +38,7 @@ export const initTariffRepository = (
   queryClient: QueryClient,
 ) => {
   tariffRepository = new TariffRepository(
-    createTariffsNetworkSources(httpService),
+    createTariffsNetworkStubSources(httpService),
     queryClient,
   );
 };
