@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { observer } from 'mobx-react-lite';
 
 import { APP_ROUTES, useNavigate } from '@example/shared';
-import { DraftRequestForm } from '@example/widgets';
+import { DraftRequestForm } from '@example/features';
 
 import { CreateDraftContentState } from './ContentState';
 import { createDraftRequestStore } from './store';

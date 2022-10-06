@@ -1,17 +1,24 @@
 import { useEffect, useState } from 'react';
 import { observer } from 'mobx-react-lite';
 
-import { APP_ROUTES, ContentState, useNavigate } from '@example/shared';
-import { DraftRequestForm } from '@example/widgets';
+import {
+  APP_ROUTES,
+  ContentState,
+  useNavigate,
+  useRouterParams,
+} from '@example/shared';
+import { DraftRequestForm } from '@example/features';
 
 import { EditDraftContentState } from './ContentState';
 import { createEditDraftStore } from './store';
 
-type Props = {
-  requestID: string;
-};
+export const EditDraftRequestScreen = observer(() => {
+  const { requestID } = useRouterParams<{ requestID: string }>();
 
-export const EditDraftRequestScreen = observer(({ requestID }: Props) => {
+  if (!requestID) {
+    return <div>Нет ID заявки</div>;
+  }
+
   const navigate = useNavigate();
 
   const [
@@ -26,7 +33,7 @@ export const EditDraftRequestScreen = observer(({ requestID }: Props) => {
     createEditDraftStore(requestID, {
       onSuccessEditRequest: () => {
         setTimeout(() => {
-          navigate(APP_ROUTES.draftRequestList.getRedirectPath());
+          navigate(APP_ROUTES.createDraftRequest.getRedirectPath());
         }, 3000);
       },
     }),

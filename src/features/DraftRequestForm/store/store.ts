@@ -1,7 +1,7 @@
 import { makeAutoObservable } from 'mobx';
 
 import { validationService } from '@example/shared';
-import { FormTariffAutocompleteValue } from '@example/domain';
+import { FormTariffAutocompleteValue } from '@example/features';
 
 import { DraftRequestStage } from '../enums';
 

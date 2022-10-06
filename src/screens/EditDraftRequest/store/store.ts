@@ -5,7 +5,7 @@ import {
   requestRepository as requestRepositoryInstance,
 } from '@example/data';
 import { AsyncState, AsyncStateStore } from '@example/shared';
-import { DraftRequestFormValues } from '@example/widgets';
+import { DraftRequestFormValues } from '@example/features';
 
 export type EditRequestData = DraftRequestFormValues;
 

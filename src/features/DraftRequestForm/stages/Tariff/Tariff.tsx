@@ -1,4 +1,4 @@
-import { FormTariffAutocomplete } from '@example/domain';
+import { FormTariffAutocomplete } from '@example/features';
 import { useFormContext } from '@example/shared';
 
 import { TariffStageValues } from '../../store';

@@ -4,7 +4,7 @@ import {
   RequestRepository,
   requestRepository as requestRepositoryInstance,
 } from '@example/data';
-import { DraftRequestFormValues } from '@example/widgets';
+import { DraftRequestFormValues } from '@example/features';
 
 type Handlers = {
   onSuccessCreateRequest: (requestID: string) => void;

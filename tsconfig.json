@@ -16,23 +16,8 @@
     "skipLibCheck": true,
     "noEmit": true,
     "paths": {
-      "@example/shared": [
-        "./src/shared"
-      ],
-      "@example/data": [
-        "./src/data"
-      ],
-      "@example/domain": [
-        "./src/domain"
-      ],
-      "@example/features": [
-        "./src/features"
-      ],
-      "@example/screens": [
-        "./src/screens"
-      ],
-      "@example/widgets": [
-        "./src/widgets"
+      "@example/*": [
+        "./src/*"
       ],
       "images/*": [
         "./public/images/*"

@@ -1,6 +1,6 @@
 import { BrowserRouter, ThemeProvider, theme } from '@example/shared';
 import { configService } from '@example/shared';
-import { MainLayout } from '@example/widgets';
+import { MainLayout } from '@example/features';
 
 import { MainRouter } from './MainRouter';
 import { initRepositories } from './data';

@@ -22,5 +22,6 @@ export {
   Route,
   useLocation,
   useNavigate,
+  useParams as useRouterParams,
   NavigateFunction,
 } from 'react-router-dom';

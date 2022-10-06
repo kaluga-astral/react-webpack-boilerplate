@@ -1,16 +1,4 @@
 export const APP_ROUTES = {
-  draftRequestList: {
-    route: '/',
-    getRedirectPath() {
-      return '/';
-    },
-  },
-  formedRequestList: {
-    route: '/formedRequests',
-    getRedirectPath() {
-      return '/formedRequests';
-    },
-  },
   owners: {
     route: '/owners',
     getRedirectPath() {
