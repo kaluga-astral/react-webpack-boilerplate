@@ -1,6 +1,9 @@
 import { makeAutoObservable, runInAction } from 'mobx';
 
-import { RequestRepository } from '@example/data';
+import {
+  RequestRepository,
+  requestRepository as requestRepositoryInstance,
+} from '@example/data';
 import { DraftRequestFormValues } from '@example/widgets';
 
 type Handlers = {
@@ -59,3 +62,6 @@ export class CreateDraftRequestStore {
     }
   };
 }
+
+export const createDraftRequestStore = (handlers: Handlers) =>
+  new CreateDraftRequestStore(requestRepositoryInstance, handlers);

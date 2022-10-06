@@ -55,3 +55,6 @@ export class DraftRequestFormStore {
     this.handlers.onFinishSubmit(values as DraftRequestFormValues);
   };
 }
+
+export const createDraftRequestFormStore = (handlers: Handlers) =>
+  new DraftRequestFormStore(handlers);

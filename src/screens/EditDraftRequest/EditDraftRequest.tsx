@@ -1,12 +1,11 @@
 import { useEffect, useState } from 'react';
 import { observer } from 'mobx-react-lite';
 
-import { requestRepository } from '@example/data';
 import { APP_ROUTES, ContentState, useNavigate } from '@example/shared';
 import { DraftRequestForm } from '@example/widgets';
 
 import { EditDraftContentState } from './ContentState';
-import { EditDraftRequestStore } from './store';
+import { createEditDraftStore } from './store';
 
 type Props = {
   requestID: string;
@@ -23,15 +22,14 @@ export const EditDraftRequestScreen = observer(({ requestID }: Props) => {
       editRequest,
       retryEditRequest,
     },
-  ] = useState(
-    () =>
-      new EditDraftRequestStore(requestRepository, requestID, {
-        onSuccessEditRequest: () => {
-          setTimeout(() => {
-            navigate(APP_ROUTES.draftRequestList.getRedirectPath());
-          }, 3000);
-        },
-      }),
+  ] = useState(() =>
+    createEditDraftStore(requestID, {
+      onSuccessEditRequest: () => {
+        setTimeout(() => {
+          navigate(APP_ROUTES.draftRequestList.getRedirectPath());
+        }, 3000);
+      },
+    }),
   );
 
   useEffect(() => {

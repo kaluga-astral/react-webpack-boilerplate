@@ -1,6 +1,11 @@
 import { makeAutoObservable, runInAction } from 'mobx';
 
-import { RepositoryCache, TariffDTO, TariffRepository } from '@example/data';
+import {
+  RepositoryCache,
+  TariffDTO,
+  TariffRepository,
+  tariffRepository as tariffRepositoryInstance,
+} from '@example/data';
 
 export type TariffAutocompleteOption = Pick<TariffDTO, 'name' | 'id' | 'price'>;
 
@@ -41,3 +46,6 @@ export class TariffAutocompleteStore {
     }
   };
 }
+
+export const createTariffAutocompleteStore = () =>
+  new TariffAutocompleteStore(tariffRepositoryInstance);

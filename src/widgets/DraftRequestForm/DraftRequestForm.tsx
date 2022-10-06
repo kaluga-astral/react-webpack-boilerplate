@@ -9,7 +9,7 @@ import {
 } from '@example/shared';
 
 import { TariffStage } from './stages/Tariff';
-import { DraftRequestFormStore } from './store';
+import { createDraftRequestFormStore } from './store';
 import { DraftRequestStage } from './enums';
 import { DraftRequestFormValues } from './types';
 
@@ -31,7 +31,9 @@ export const DraftRequestForm = observer(
         validationSchema,
         tariffStageValues,
       },
-    ] = useState(() => new DraftRequestFormStore({ onFinishSubmit: onSubmit }));
+    ] = useState(() =>
+      createDraftRequestFormStore({ onFinishSubmit: onSubmit }),
+    );
 
     const form = useForm<DraftRequestFormValues>({
       defaultValues: initialValues,

@@ -1,6 +1,9 @@
 import { makeAutoObservable, runInAction } from 'mobx';
 
-import { RequestRepository } from '@example/data';
+import {
+  RequestRepository,
+  requestRepository as requestRepositoryInstance,
+} from '@example/data';
 import { AsyncState, AsyncStateStore } from '@example/shared';
 import { DraftRequestFormValues } from '@example/widgets';
 
@@ -11,10 +14,6 @@ type Handlers = {
 };
 
 export class EditDraftRequestStore {
-  private fetchRequestStateStore: AsyncStateStore;
-
-  private editRequestStateStore: AsyncStateStore;
-
   public requestData: DraftRequestFormValues | undefined;
 
   private editRequestCache: EditRequestData | undefined;
@@ -23,12 +22,14 @@ export class EditDraftRequestStore {
     private readonly requestRepository: RequestRepository,
     private readonly requestID: string,
     private readonly handlers: Handlers,
+    private readonly fetchRequestStateStore: AsyncStateStore,
+    private readonly editRequestStateStore: AsyncStateStore,
   ) {
     this.requestRepository = requestRepository;
     this.requestID = requestID;
     this.handlers = handlers;
-    this.fetchRequestStateStore = new AsyncStateStore();
-    this.editRequestStateStore = new AsyncStateStore();
+    this.fetchRequestStateStore = fetchRequestStateStore;
+    this.editRequestStateStore = editRequestStateStore;
     makeAutoObservable(this, {}, { autoBind: true });
   }
 
@@ -89,3 +90,12 @@ export class EditDraftRequestStore {
     }
   };
 }
+
+export const createEditDraftStore = (requestID: string, handlers: Handlers) =>
+  new EditDraftRequestStore(
+    requestRepositoryInstance,
+    requestID,
+    handlers,
+    new AsyncStateStore(),
+    new AsyncStateStore(),
+  );
