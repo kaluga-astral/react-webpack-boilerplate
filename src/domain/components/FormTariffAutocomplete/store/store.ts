@@ -20,30 +20,32 @@ export class TariffAutocompleteStore {
     makeAutoObservable(this, {}, { autoBind: true });
   }
 
-  public getTariffs = async (): Promise<void> => {
-    try {
-      this.isLoading = true;
+  public getTariffs = () => {
+    this.isLoading = true;
 
-      const result = await this.tariffRepository.getTariffs({
+    this.tariffRepository
+      .getTariffs({
         cache: { cacheTime: RepositoryCache.Infinity },
+      })
+      .then(({ data }) => {
+        runInAction(() => {
+          this.options = data.map(({ name, id, price }) => ({
+            name,
+            id,
+            price,
+          }));
+        });
+      })
+      .catch((err) => {
+        runInAction(() => {
+          this.error = err as Error;
+        });
+      })
+      .finally(() => {
+        runInAction(() => {
+          this.isLoading = false;
+        });
       });
-
-      runInAction(() => {
-        this.options = result.data.map(({ name, id, price }) => ({
-          name,
-          id,
-          price,
-        }));
-      });
-    } catch (err) {
-      runInAction(() => {
-        this.error = err as Error;
-      });
-    } finally {
-      runInAction(() => {
-        this.isLoading = false;
-      });
-    }
   };
 }
 

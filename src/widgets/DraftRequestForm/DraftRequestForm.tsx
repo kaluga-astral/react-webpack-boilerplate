@@ -9,9 +9,8 @@ import {
 } from '@example/shared';
 
 import { TariffStage } from './stages/Tariff';
-import { createDraftRequestFormStore } from './store';
+import { DraftRequestFormValues, createDraftRequestFormStore } from './store';
 import { DraftRequestStage } from './enums';
-import { DraftRequestFormValues } from './types';
 
 const RequestInfoStage = lazy(() => import('./stages/RequestInfo'));
 

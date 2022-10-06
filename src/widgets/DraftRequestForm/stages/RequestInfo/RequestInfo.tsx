@@ -1,7 +1,7 @@
 import { FormTextField, Typography, useFormContext } from '@example/shared';
 import { formatPriceToView } from '@example/domain';
 
-export type RequestInfoStageValues = { description: string };
+import { RequestInfoStageValues } from '../../store';
 
 export type RequestInfoStageProps = {
   isShowTariffPrice: boolean;

@@ -28,9 +28,7 @@ export class CreateDraftRequestStore {
     makeAutoObservable(this, {}, { autoBind: true });
   }
 
-  public createRequest = async (
-    data: DraftRequestFormValues,
-  ): Promise<void> => {
+  public createRequest = async (data: DraftRequestFormValues): Promise<void> => {
     this.isLoading = true;
     this.isSuccess = false;
     this.errorMessage = undefined;

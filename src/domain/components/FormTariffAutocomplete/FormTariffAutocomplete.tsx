@@ -17,10 +17,12 @@ export type FormTariffAutocompleteProps = Pick<
 
 export const FormTariffAutocomplete = observer(
   ({ name, control, label }: FormTariffAutocompleteProps) => {
-    const [store] = useState(createTariffAutocompleteStore);
+    const [{ getTariffs, isLoading, options }] = useState(
+      createTariffAutocompleteStore,
+    );
 
     useEffect(() => {
-      store.getTariffs();
+      getTariffs();
     }, []);
 
     return (
@@ -28,8 +30,8 @@ export const FormTariffAutocomplete = observer(
         name={name}
         control={control}
         label={label}
-        options={store.options}
-        loading={store.isLoading}
+        options={options}
+        loading={isLoading}
         getOptionLabel={(option) => option?.name}
       />
     );
