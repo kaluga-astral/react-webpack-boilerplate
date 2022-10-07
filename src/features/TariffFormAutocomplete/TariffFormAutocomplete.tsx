@@ -4,19 +4,17 @@ import { observer } from 'mobx-react-lite';
 import { FormAutocomplete, FormAutocompleteProps } from '@example/shared';
 
 import {
-  TariffAutocompleteOption,
+  TariffFormAutocompleteValue,
   createTariffAutocompleteStore,
 } from './store';
 
-export type FormTariffAutocompleteValue = TariffAutocompleteOption;
-
-export type FormTariffAutocompleteProps = Pick<
-  FormAutocompleteProps<TariffAutocompleteOption>,
+export type TariffFormAutocompleteProps = Pick<
+  FormAutocompleteProps<TariffFormAutocompleteValue>,
   'name' | 'control' | 'label'
 >;
 
-export const FormTariffAutocomplete = observer(
-  ({ name, control, label }: FormTariffAutocompleteProps) => {
+export const TariffFormAutocomplete = observer(
+  ({ name, control, label }: TariffFormAutocompleteProps) => {
     const [{ getTariffs, isLoading, options }] = useState(
       createTariffAutocompleteStore,
     );
@@ -26,7 +24,7 @@ export const FormTariffAutocomplete = observer(
     }, []);
 
     return (
-      <FormAutocomplete<TariffAutocompleteOption>
+      <FormAutocomplete<TariffFormAutocompleteValue>
         name={name}
         control={control}
         label={label}

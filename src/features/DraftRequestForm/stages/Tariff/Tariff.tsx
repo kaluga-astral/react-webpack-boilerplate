@@ -1,4 +1,4 @@
-import { FormTariffAutocomplete } from '@example/features';
+import { TariffFormAutocomplete } from '@example/features';
 import { useFormContext } from '@example/shared';
 
 import { TariffStageValues } from '../../store';
@@ -8,7 +8,7 @@ export const TariffStage = () => {
 
   return (
     <div>
-      <FormTariffAutocomplete
+      <TariffFormAutocomplete
         name="tariff"
         label="Выберите тариф"
         control={control}

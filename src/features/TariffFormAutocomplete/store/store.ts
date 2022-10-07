@@ -7,14 +7,17 @@ import {
   tariffRepository as tariffRepositoryInstance,
 } from '@example/data';
 
-export type TariffAutocompleteOption = Pick<TariffDTO, 'name' | 'id' | 'price'>;
+export type TariffFormAutocompleteValue = Pick<
+  TariffDTO,
+  'name' | 'id' | 'price'
+>;
 
 export class TariffAutocompleteStore {
   public isLoading = false;
 
   public error: Error | null = null;
 
-  public options: TariffAutocompleteOption[] = [];
+  public options: TariffFormAutocompleteValue[] = [];
 
   constructor(private readonly tariffRepository: TariffRepository) {
     makeAutoObservable(this, {}, { autoBind: true });

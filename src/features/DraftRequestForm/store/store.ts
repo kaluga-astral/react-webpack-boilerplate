@@ -1,12 +1,12 @@
 import { makeAutoObservable } from 'mobx';
 
 import { validationService } from '@example/shared';
-import { FormTariffAutocompleteValue } from '@example/features';
+import { TariffFormAutocompleteValue } from '@example/features';
 
 import { DraftRequestStage } from '../enums';
 
 export type TariffStageValues = {
-  tariff: FormTariffAutocompleteValue;
+  tariff: TariffFormAutocompleteValue;
 };
 
 export type RequestInfoStageValues = {

@@ -2,4 +2,4 @@ export * from './MainLayout';
 
 export * from './DraftRequestForm';
 
-export * from './FormTariffAutocomplete';
+export * from './TariffFormAutocomplete';
