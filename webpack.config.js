@@ -17,7 +17,7 @@ const {
   useFavicons,
   useBundleAnalyzer,
   useSvgr,
-} = require('./webpack');
+} = require('./config/webpack');
 
 const { ENV_NAME = 'local' } = process.env;
 
@@ -51,5 +51,7 @@ module.exports = (_, { mode }) =>
     useBundleAnalyzer({ enabled: false }),
   )({
     target: 'web',
-    entry: path.resolve(__dirname, 'src', 'index.tsx'),
+    entry: path.resolve(__dirname, 'src', 'main.tsx'),
+    // убирает warnings из за отключения проверки типов в babel-loader
+    ignoreWarnings: [/export .* was not found in/],
   });

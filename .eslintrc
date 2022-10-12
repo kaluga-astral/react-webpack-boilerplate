@@ -6,17 +6,7 @@
       {
         "pathGroups": [
           {
-            "pattern": "common/**",
-            "group": "internal",
-            "position": "after"
-          },
-          {
-            "pattern": "config/**",
-            "group": "internal",
-            "position": "after"
-          },
-          {
-            "pattern": "images/**",
+            "pattern": "@example/**",
             "group": "internal",
             "position": "after"
           }
