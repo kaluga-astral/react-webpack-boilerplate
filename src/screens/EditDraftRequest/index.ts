@@ -1,1 +1,1 @@
-export { EditDraftRequestScreen as default } from './EditDraftRequest';
+export * from './EditDraftRequest';

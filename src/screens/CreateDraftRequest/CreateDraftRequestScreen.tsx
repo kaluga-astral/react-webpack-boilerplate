@@ -1,15 +1,17 @@
 import { useState } from 'react';
 import { observer } from 'mobx-react-lite';
 
-import { APP_ROUTES, useNavigate } from '@example/shared';
-import { DraftRequestForm } from '@example/features';
+import { APP_ROUTES, NavigateFunction } from '@example/shared';
+import {
+  DraftRequestForm,
+  createDraftRequestStore,
+} from '@example/modules/RequestModule';
 
 import { CreateDraftContentState } from './ContentState';
-import { createDraftRequestStore } from './store';
 
-export const CreateDraftRequestScreen = observer(() => {
-  const navigate = useNavigate();
+type Props = { navigate: NavigateFunction };
 
+export const CreateDraftRequestScreen = observer(({ navigate }: Props) => {
   const [
     { isSuccess, createRequest, errorMessage, isLoading, retryCreateRequest },
   ] = useState(() =>

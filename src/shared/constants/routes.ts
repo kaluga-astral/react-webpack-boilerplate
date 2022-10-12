@@ -6,7 +6,7 @@ export const APP_ROUTES = {
     },
   },
   createDraftRequest: {
-    route: '/createDraftRequest',
+    route: '/',
     getRedirectPath() {
       return '/createDraftRequest';
     },
