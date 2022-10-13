@@ -1,7 +1,8 @@
 import { useEffect, useState } from 'react';
 import { observer } from 'mobx-react-lite';
 
-import { APP_ROUTES, ContentState, NavigateFunction } from '@example/shared';
+import { ContentState, NavigateFunction } from '@example/shared';
+import { APP_ROUTES } from '@example/modules/ServiceModule';
 import {
   DraftRequestForm,
   createEditRequestDraftStore,

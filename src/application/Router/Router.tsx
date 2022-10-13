@@ -1,6 +1,7 @@
 import { Suspense, lazy } from 'react';
 
-import { APP_ROUTES, ContentState, Route, Routes } from '@example/shared';
+import { ContentState, Route, Routes } from '@example/shared';
+import { APP_ROUTES } from '@example/modules/ServiceModule';
 
 const CreateDraftRequestPage = lazy(() => import('./root'));
 const EditDraftRequestPage = lazy(() => import('./editRequest'));
