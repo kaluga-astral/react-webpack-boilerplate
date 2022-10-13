@@ -1,10 +1,11 @@
 import {
-  APP_ROUTES,
   DashboardLayout,
   ProfileOutlineMd,
   RouterLink,
   useLocation,
 } from '@example/shared';
+
+import { APP_ROUTES } from '../../../constants';
 
 export const Sidebar = () => {
   const location = useLocation();
