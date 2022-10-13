@@ -1,4 +1,8 @@
-import { LocalStorageService, localStorageService } from '@example/shared';
+import {
+  LocalStorageService,
+  QueryObserver,
+  localStorageService,
+} from '@example/shared';
 import {
   QueryClient,
   RepositoryFetchParams,
@@ -33,6 +37,8 @@ import {
  * */
 export class RequestRepository {
   private readonly requestStoreID = 'request';
+
+  private readonly requestWithTariffCacheKey = 'requestWithTariff';
 
   constructor(
     private readonly requestNetworkSources: RequestNetworkSources,
@@ -81,7 +87,7 @@ export class RequestRepository {
     params?: RepositoryFetchParams,
   ) =>
     this.queryClient.fetchQuery<RequestWithTariffDTO>(
-      [requestID],
+      [this.requestWithTariffCacheKey, requestID],
       async () => {
         const [request, tariffs] = await Promise.all([
           this.getRequestInfo(requestID),
@@ -97,6 +103,21 @@ export class RequestRepository {
       },
       params?.cache,
     );
+
+  public subscribeRequestWithTariff = (
+    requestID: string,
+    func: (data: RequestWithTariffDTO) => void,
+  ) => {
+    const observer = new QueryObserver<RequestWithTariffDTO>(this.queryClient, {
+      queryKey: [this.requestWithTariffCacheKey, requestID],
+    });
+
+    observer.subscribe(({ data }) => {
+      if (data) {
+        func(data);
+      }
+    });
+  };
 
   public createDraftRequest = (
     data: CreateDraftRequestInputDTO,

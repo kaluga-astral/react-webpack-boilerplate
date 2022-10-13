@@ -32,6 +32,15 @@ export class EditDraftRequestStore {
     this.fetchRequestStateStore = fetchRequestStateStore;
     this.editRequestStateStore = editRequestStateStore;
     makeAutoObservable(this, {}, { autoBind: true });
+
+    this.requestRepository.subscribeRequestWithTariff(
+      requestID,
+      (requestData) => {
+        runInAction(() => {
+          this.requestData = requestData;
+        });
+      },
+    );
   }
 
   get fetchRequestState(): AsyncState {
@@ -62,7 +71,6 @@ export class EditDraftRequestStore {
 
   public editRequest = async (data: EditRequestData): Promise<void> => {
     this.editRequestStateStore.start();
-    this.editRequestCache = data;
 
     const { tariff, description } = data;
 
