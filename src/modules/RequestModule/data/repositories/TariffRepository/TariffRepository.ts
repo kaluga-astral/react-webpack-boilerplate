@@ -1,6 +1,7 @@
 import {
   QueryClient,
   RepositoryFetchParams,
+  createCachedQuery,
   queryClient as queryClientInstance,
 } from '@example/modules/ServiceModule';
 
@@ -15,6 +16,8 @@ import { TariffListDTO } from './dto';
  * @description Repository для работы с даннми тарифов
  * */
 export class TariffRepository {
+  private readonly tariffsCacheID = 'tariffsCacheID';
+
   constructor(
     private readonly tariffNetworkSources: TariffsNetworkSources,
     private readonly queryClient: QueryClient,
@@ -23,14 +26,17 @@ export class TariffRepository {
     this.queryClient = queryClient;
   }
 
+  public getTariffsCacheKey = () => [this.tariffsCacheID];
+
   /**
    * @description Получение списка всех тарифов
    * */
   public getTariffs = async (params?: RepositoryFetchParams) =>
-    this.queryClient.fetchQuery<TariffListDTO>(
-      [Symbol()],
-      async () => this.tariffNetworkSources.getTariffs(),
-      params?.cache,
+    createCachedQuery<TariffListDTO>(
+      this.queryClient,
+      this.getTariffsCacheKey(),
+      () => this.tariffNetworkSources.getTariffs(),
+      params,
     );
 }
 

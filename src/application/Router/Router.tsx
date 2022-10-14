@@ -1,9 +1,11 @@
 import { Suspense, lazy } from 'react';
 
-import { APP_ROUTES, ContentState, Route, Routes } from '@example/shared';
+import { ContentState, Route, Routes } from '@example/shared';
+import { APP_ROUTES } from '@example/modules/ServiceModule';
 
 const CreateDraftRequestPage = lazy(() => import('./root'));
 const EditDraftRequestPage = lazy(() => import('./editRequest'));
+const RequestPage = lazy(() => import('./request'));
 
 export const MainRouter = () => {
   return (
@@ -17,10 +19,26 @@ export const MainRouter = () => {
         }
       />
       <Route
+        path={APP_ROUTES.createDraftRequest.route}
+        element={
+          <Suspense fallback={<ContentState isLoading>loading</ContentState>}>
+            <CreateDraftRequestPage />
+          </Suspense>
+        }
+      />
+      <Route
         path={APP_ROUTES.editDraftRequest.route}
         element={
           <Suspense fallback={<ContentState isLoading>loading</ContentState>}>
             <EditDraftRequestPage />
+          </Suspense>
+        }
+      />
+      <Route
+        path={APP_ROUTES.request.route}
+        element={
+          <Suspense fallback={<ContentState isLoading>loading</ContentState>}>
+            <RequestPage />
           </Suspense>
         }
       />

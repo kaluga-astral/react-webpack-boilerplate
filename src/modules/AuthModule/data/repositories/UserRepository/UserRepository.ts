@@ -2,7 +2,10 @@ import {
   QueryClient,
   queryClient as queryClientInstance,
 } from '@example/modules/ServiceModule/services';
-import { RepositoryFetchParams } from '@example/modules/ServiceModule/types';
+import {
+  RepositoryFetchParams,
+  createCachedQuery,
+} from '@example/modules/ServiceModule';
 
 import {
   UserContactNetworkDTO,
@@ -17,6 +20,12 @@ import { UserFullInfoDTO } from './dto';
  * @description Repository для работы с даннми юзере
  * */
 export class UserRepository {
+  public fullInfoCacheKey = ['fullInfoCacheKey'];
+
+  public contactInfoCacheKey = ['contactInfoCacheKey'];
+
+  public personInfoCacheKey = ['personInfoCacheKey'];
+
   constructor(
     private readonly userNetworkSources: UserNetworkSources,
     private readonly queryClient: QueryClient,
@@ -28,13 +37,14 @@ export class UserRepository {
   /**
    * @description Получение полной информации о юзере
    * */
-  public getFullInfo = async (params?: RepositoryFetchParams) =>
-    this.queryClient.fetchQuery<UserFullInfoDTO>(
-      [Symbol()],
+  public getFullInfo = (params?: RepositoryFetchParams) =>
+    createCachedQuery<UserFullInfoDTO>(
+      this.queryClient,
+      this.fullInfoCacheKey,
       async () => {
         const [contactInfo, personInfo] = await Promise.all([
-          this.getContactInfo(),
-          this.getPersonInfo(),
+          this.getContactInfo(params),
+          this.getPersonInfo(params),
         ]);
 
         return {
@@ -42,21 +52,23 @@ export class UserRepository {
           ...personInfo,
         };
       },
-      params?.cache,
+      params,
     );
 
   public getContactInfo = (params?: RepositoryFetchParams) =>
-    this.queryClient.fetchQuery<UserContactNetworkDTO>(
-      [Symbol()],
+    createCachedQuery<UserContactNetworkDTO>(
+      this.queryClient,
+      this.contactInfoCacheKey,
       this.userNetworkSources.getContactInfo,
-      params?.cache,
+      params,
     );
 
   public getPersonInfo = (params?: RepositoryFetchParams) =>
-    this.queryClient.fetchQuery<UserPersonNetworkDTO>(
-      [Symbol()],
+    createCachedQuery<UserPersonNetworkDTO>(
+      this.queryClient,
+      this.personInfoCacheKey,
       this.userNetworkSources.getPersonInfo,
-      params?.cache,
+      params,
     );
 }
 

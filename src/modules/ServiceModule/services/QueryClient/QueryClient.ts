@@ -1,5 +1,10 @@
-import { QueryClient, createQueryClient } from '@example/shared';
+import {
+  FetchQueryOptions,
+  QueryClient,
+  QueryFunction,
+  createQueryClient,
+} from '@example/shared';
 
 export const queryClient = createQueryClient();
 
-export { QueryClient };
+export { QueryClient, QueryFunction, FetchQueryOptions };

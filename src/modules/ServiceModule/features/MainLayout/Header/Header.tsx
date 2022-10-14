@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { observer } from 'mobx-react-lite';
 import logoSrc from 'images/logo.png';
 
@@ -12,16 +12,14 @@ import {
   ProfileOutlineMd,
   QuitOutlineMd,
 } from '@example/shared';
-import { userRepository } from '@example/modules/AuthModule';
+import { useUserFullInfoQuery } from '@example/modules/AuthModule';
 
 import { HeaderStore } from './store';
 
 export const Header = observer(() => {
-  const [store] = useState(() => new HeaderStore(userRepository));
+  const [{ setData, displayName }] = useState(() => new HeaderStore());
 
-  useEffect(() => {
-    store.getProfile();
-  }, []);
+  useUserFullInfoQuery({ onSuccess: setData });
 
   return (
     <DashboardLayout.Header
@@ -37,7 +35,7 @@ export const Header = observer(() => {
         ),
       }}
       profile={{
-        displayName: store.displayName || '...',
+        displayName,
         menu: (props) => (
           <Menu {...props}>
             <MenuItem>

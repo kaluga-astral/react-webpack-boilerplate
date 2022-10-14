@@ -2,6 +2,7 @@ import { LocalStorageService, localStorageService } from '@example/shared';
 import {
   QueryClient,
   RepositoryFetchParams,
+  createCachedQuery,
   queryClient as queryClientInstance,
 } from '@example/modules/ServiceModule';
 
@@ -34,18 +35,20 @@ import {
 export class RequestRepository {
   private readonly requestStoreID = 'request';
 
+  private readonly requestWithTariffCacheID = 'requestWithTariffCacheID';
+
   constructor(
     private readonly requestNetworkSources: RequestNetworkSources,
     private readonly ownerRepository: OwnerRepository,
     private readonly tariffRepository: TariffRepository,
-    private readonly storageService: LocalStorageService,
     private readonly queryClient: QueryClient,
+    private readonly storageService: LocalStorageService,
   ) {
     this.requestNetworkSources = requestNetworkSources;
     this.ownerRepository = ownerRepository;
     this.tariffRepository = tariffRepository;
-    this.storageService = storageService;
     this.queryClient = queryClient;
+    this.storageService = storageService;
   }
 
   /**
@@ -53,35 +56,31 @@ export class RequestRepository {
    * */
   public getRequestFullInfo = async (
     requestID: string,
-    params?: RepositoryFetchParams,
-  ) =>
-    this.queryClient.fetchQuery<RequestFullInfoDTO>(
-      [requestID],
-      async () => {
-        const { ownerID, ...request } = await this.getRequestInfo(requestID);
-        const owner = await this.ownerRepository.getOwnerInfo(ownerID);
+  ): Promise<RequestFullInfoDTO> => {
+    const { ownerID, ...request } = await this.getRequestInfo(requestID);
+    const owner = await this.ownerRepository.getOwnerInfo(ownerID);
 
-        return {
-          ...request,
-          owner,
-        };
-      },
-      params?.cache,
-    );
+    return {
+      ...request,
+      owner,
+    };
+  };
 
-  public getRequestInfo = (requestID: string, params?: RepositoryFetchParams) =>
-    this.queryClient.fetchQuery<RequestDTO>(
-      [requestID],
-      () => this.requestNetworkSources.getRequestInfo(requestID),
-      params?.cache,
-    );
+  public getRequestInfo = (requestID: string): Promise<RequestDTO> =>
+    this.requestNetworkSources.getRequestInfo(requestID);
+
+  public getRequestWithTariffCacheID = (requestID: string): string[] => [
+    this.requestWithTariffCacheID,
+    requestID,
+  ];
 
   public getRequestWithTariff = async (
     requestID: string,
     params?: RepositoryFetchParams,
   ) =>
-    this.queryClient.fetchQuery<RequestWithTariffDTO>(
-      [requestID],
+    createCachedQuery(
+      this.queryClient,
+      this.getRequestWithTariffCacheID(requestID),
       async () => {
         const [request, tariffs] = await Promise.all([
           this.getRequestInfo(requestID),
@@ -95,8 +94,18 @@ export class RequestRepository {
           tariff: tariffs.data.find(({ id }) => id === tariffID) as TariffDTO,
         };
       },
-      params?.cache,
+      params,
     );
+
+  public updateRequestWithTariffCache = (
+    requestID: string,
+    updater: (data?: RequestWithTariffDTO) => RequestWithTariffDTO | undefined,
+  ): void => {
+    this.queryClient.setQueryData<RequestWithTariffDTO>(
+      this.getRequestWithTariffCacheID(requestID),
+      updater,
+    );
+  };
 
   public createDraftRequest = (
     data: CreateDraftRequestInputDTO,
@@ -113,6 +122,6 @@ export const requestRepository = new RequestRepository(
   requestNetworkSourcesInstance,
   ownerRepositoryInstance,
   tariffRepositoryInstance,
-  localStorageService,
   queryClientInstance,
+  localStorageService,
 );

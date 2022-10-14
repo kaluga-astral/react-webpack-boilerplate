@@ -1,3 +1,5 @@
-import { QueryClientCacheParams } from '@example/shared';
+import { QueryFetchPolicy } from '@example/shared';
 
-export type RepositoryFetchParams = { cache?: QueryClientCacheParams };
+export type RepositoryFetchParams = {
+  fetchPolicy?: QueryFetchPolicy;
+};

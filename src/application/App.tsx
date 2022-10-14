@@ -1,11 +1,14 @@
 import { useEffect, useState } from 'react';
 import { observer } from 'mobx-react-lite';
+import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
+import { QueryClientProvider } from '@tanstack/react-query';
 
 import { BrowserRouter, ThemeProvider, theme } from '@example/shared';
 import {
   MainLayout,
   apiHttpClient,
   configService,
+  queryClient,
 } from '@example/modules/ServiceModule';
 import { authStore } from '@example/modules/AuthModule';
 
@@ -25,9 +28,12 @@ export const App = observer(() => {
   return (
     <ThemeProvider theme={theme}>
       <BrowserRouter>
-        <MainLayout>
-          <MainRouter />
-        </MainLayout>
+        <QueryClientProvider client={queryClient}>
+          <ReactQueryDevtools initialIsOpen />
+          <MainLayout>
+            <MainRouter />
+          </MainLayout>
+        </QueryClientProvider>
       </BrowserRouter>
     </ThemeProvider>
   );

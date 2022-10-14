@@ -1,10 +1,13 @@
-import { makeAutoObservable, runInAction } from 'mobx';
+import { runInAction } from 'mobx';
 
 import { AsyncState, AsyncStateStore } from '@example/shared';
 
 import {
   RequestRepository,
+  TariffDTO,
+  TariffRepository,
   requestRepository as requestRepositoryInstance,
+  tariffRepository as tariffRepositoryInstance,
 } from '../../../data';
 import { DraftRequestFormValues } from '../../../features';
 
@@ -14,51 +17,20 @@ type Handlers = {
   onSuccessEditRequest: () => void;
 };
 
-export class EditDraftRequestStore {
-  public requestData: DraftRequestFormValues | undefined;
-
+export class EditDraftRequestLogic {
   private editRequestCache: EditRequestData | undefined;
 
   constructor(
     private readonly requestRepository: RequestRepository,
+    private readonly editRequestStateStore: AsyncStateStore,
+    private readonly tariffRepository: TariffRepository,
     private readonly requestID: string,
     private readonly handlers: Handlers,
-    private readonly fetchRequestStateStore: AsyncStateStore,
-    private readonly editRequestStateStore: AsyncStateStore,
-  ) {
-    this.requestRepository = requestRepository;
-    this.requestID = requestID;
-    this.handlers = handlers;
-    this.fetchRequestStateStore = fetchRequestStateStore;
-    this.editRequestStateStore = editRequestStateStore;
-    makeAutoObservable(this, {}, { autoBind: true });
-  }
-
-  get fetchRequestState(): AsyncState {
-    return this.fetchRequestStateStore.state;
-  }
+  ) {}
 
   get editRequestState(): AsyncState {
     return this.editRequestStateStore.state;
   }
-
-  public getRequest = () => {
-    this.fetchRequestStateStore.start();
-
-    this.requestRepository
-      .getRequestWithTariff(this.requestID)
-      .then((request) => {
-        runInAction(() => {
-          this.fetchRequestStateStore.success();
-          this.requestData = request;
-        });
-      })
-      .catch((err) => {
-        runInAction(() => {
-          this.fetchRequestStateStore.fail(err.message);
-        });
-      });
-  };
 
   public editRequest = async (data: EditRequestData): Promise<void> => {
     this.editRequestStateStore.start();
@@ -72,6 +44,28 @@ export class EditDraftRequestStore {
         tariffID: tariff.id,
         description,
       });
+
+      const tariffs = await this.tariffRepository.getTariffs({
+        fetchPolicy: 'cacheFirst',
+      });
+
+      this.requestRepository.updateRequestWithTariffCache(
+        this.requestID,
+        (prevRequestData) => {
+          if (prevRequestData) {
+            return {
+              ...prevRequestData,
+              ...data,
+              tariff: tariffs.data.find(
+                ({ id }) => id === data.tariff.id,
+              ) as TariffDTO,
+              updatedDate: new Date().toISOString(),
+            };
+          }
+
+          return undefined;
+        },
+      );
 
       runInAction(() => {
         this.editRequestStateStore.success();
@@ -92,14 +86,14 @@ export class EditDraftRequestStore {
   };
 }
 
-export const createEditRequestDraftStore = (
+export const createEditRequestDraftLogic = (
   requestID: string,
   handlers: Handlers,
 ) =>
-  new EditDraftRequestStore(
+  new EditDraftRequestLogic(
     requestRepositoryInstance,
+    new AsyncStateStore(),
+    tariffRepositoryInstance,
     requestID,
     handlers,
-    new AsyncStateStore(),
-    new AsyncStateStore(),
   );
