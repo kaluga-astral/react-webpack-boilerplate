@@ -1,4 +1,4 @@
-import { useMemo, useState } from 'react';
+import { useEffect, useState } from 'react';
 
 import { FormAutocomplete, FormAutocompleteProps } from '@example/shared';
 
@@ -19,11 +19,15 @@ export const TariffFormAutocomplete = ({
   control,
   label,
 }: TariffFormAutocompleteProps) => {
-  const [{ getState }] = useState(createTariffAutocompleteStore);
+  const [{ setFetchTariffResult, tariffs, isLoading }] = useState(
+    createTariffAutocompleteStore,
+  );
 
-  const query = useTariffsQuery();
+  const query = useTariffsQuery({ fetchPolicy: 'network-only' });
 
-  const { tariffs, isLoading } = useMemo(() => getState(query), [query]);
+  useEffect(() => {
+    setFetchTariffResult(query);
+  }, [query]);
 
   return (
     <FormAutocomplete<TariffFormAutocompleteValue>

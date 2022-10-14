@@ -48,7 +48,7 @@ export class EditDraftRequestLogic {
       });
 
       const tariffs = await this.tariffRepository.getTariffs({
-        fetchPolicy: 'cacheFirst',
+        fetchPolicy: 'cache-first',
       });
 
       this.requestRepository.updateRequestWithTariffCache(

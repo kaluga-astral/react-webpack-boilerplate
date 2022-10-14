@@ -10,7 +10,7 @@ export const createQueryClient = () =>
   new QueryClient({
     defaultOptions: {
       queries: {
-        staleTime: QueryClientCache.MaxLong,
+        staleTime: 0,
         cacheTime: QueryClientCache.MaxLong,
         refetchOnWindowFocus: false,
       },

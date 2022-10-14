@@ -11,12 +11,12 @@ export const createCachedQuery = <TQueryFnData = unknown, TError = unknown>(
   queryKey: string[],
   fetch: () => Promise<TQueryFnData>,
   options: Options = {
-    fetchPolicy: 'networkOnly',
+    fetchPolicy: 'network-only',
   },
 ): Promise<TQueryFnData> => {
   const { fetchPolicy } = options;
 
-  if (fetchPolicy === 'cacheFirst') {
+  if (fetchPolicy === 'cache-first') {
     return queryClient.fetchQuery<TQueryFnData, TError>(queryKey, fetch);
   }
 

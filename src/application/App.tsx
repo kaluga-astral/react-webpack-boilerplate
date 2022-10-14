@@ -3,7 +3,12 @@ import { observer } from 'mobx-react-lite';
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
 import { QueryClientProvider } from '@tanstack/react-query';
 
-import { BrowserRouter, ThemeProvider, theme } from '@example/shared';
+import {
+  BrowserRouter,
+  NotificationContainer,
+  ThemeProvider,
+  theme,
+} from '@example/shared';
 import {
   MainLayout,
   apiHttpClient,
@@ -29,6 +34,7 @@ export const App = observer(() => {
     <ThemeProvider theme={theme}>
       <BrowserRouter>
         <QueryClientProvider client={queryClient}>
+          <NotificationContainer />
           <ReactQueryDevtools initialIsOpen />
           <MainLayout>
             <MainRouter />

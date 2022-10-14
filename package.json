@@ -24,6 +24,7 @@
     "@tanstack/react-query": "^4.8.0",
     "mobx-react-lite": "^3.4.0",
     "@astral/ui": "^1.19.4",
+    "nanoid": "^3.3.4",
     "@astral/icons": "^1.19.4",
     "@astral/form": "^1.19.4",
     "@astral/fonts": "^1.19.4",

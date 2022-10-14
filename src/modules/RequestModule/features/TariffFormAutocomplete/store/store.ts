@@ -1,3 +1,7 @@
+import { makeAutoObservable } from 'mobx';
+
+import { notify } from '@example/shared';
+
 import { TariffDTO, TariffListDTO } from '../../../data';
 
 export type TariffFormAutocompleteValue = Pick<
@@ -5,31 +9,43 @@ export type TariffFormAutocompleteValue = Pick<
   'name' | 'id' | 'price'
 >;
 
-export type TariffAutocompleteState = {
-  isLoading: boolean;
-  tariffs: TariffFormAutocompleteValue[];
-};
-
 export class TariffAutocompleteStore {
-  private formatTariffs = ({
-    data,
-  }: TariffListDTO): TariffFormAutocompleteValue[] =>
+  isLoading = true;
+
+  tariffs: TariffFormAutocompleteValue[] = [];
+
+  constructor() {
+    makeAutoObservable(this, {}, { autoBind: true });
+  }
+
+  private formatTariffs = (
+    data: TariffListDTO['data'],
+  ): TariffFormAutocompleteValue[] =>
     data.map(({ name, id, price }) => ({
       name,
       id,
       price,
     }));
 
-  public getState = ({
+  public setFetchTariffResult = ({
     isLoading,
     data,
+    error,
   }: {
     isLoading: boolean;
     data?: TariffListDTO;
-  }): TariffAutocompleteState => ({
-    isLoading,
-    tariffs: data ? this.formatTariffs(data) : [],
-  });
+    error: Error | null;
+  }) => {
+    this.isLoading = isLoading;
+
+    if (error) {
+      notify.error(error.message);
+
+      return;
+    }
+
+    this.tariffs = this.formatTariffs(data?.data || []);
+  };
 }
 
 export const createTariffAutocompleteStore = () =>
