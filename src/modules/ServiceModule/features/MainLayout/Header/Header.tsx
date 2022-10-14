@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { observer } from 'mobx-react-lite';
 import logoSrc from 'images/logo.png';
 
@@ -17,11 +17,15 @@ import { useUserFullInfoQuery } from '@example/modules/AuthModule';
 import { createHeaderLogic } from './store';
 
 export const Header = observer(() => {
-  const [{ getState }] = useState(createHeaderLogic);
+  const [{ setUserData, user }] = useState(createHeaderLogic);
 
   const query = useUserFullInfoQuery();
 
-  const { user } = getState(query);
+  useEffect(() => {
+    if (query.data) {
+      setUserData(query);
+    }
+  }, [query]);
 
   return (
     <DashboardLayout.Header
