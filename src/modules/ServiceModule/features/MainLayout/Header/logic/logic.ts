@@ -1,4 +1,9 @@
-import { UserFullInfoDTO } from '@example/modules/AuthModule';
+import { useState } from 'react';
+
+import {
+  UserFullInfoDTO,
+  useUserFullInfoQuery,
+} from '@example/modules/AuthModule';
 
 type UserViewModel = {
   displayName: string;
@@ -14,7 +19,7 @@ class HeaderLogic {
     displayName: data?.displayName || '...',
   });
 
-  public getState = ({
+  public getResultLogic = ({
     isLoading,
     data,
   }: {
@@ -26,4 +31,10 @@ class HeaderLogic {
   });
 }
 
-export const createHeaderLogic = () => new HeaderLogic();
+export const useLogic = (): ResultInterface => {
+  const [{ getResultLogic }] = useState(() => new HeaderLogic());
+
+  const query = useUserFullInfoQuery();
+
+  return getResultLogic(query);
+};

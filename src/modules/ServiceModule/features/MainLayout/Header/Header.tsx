@@ -14,12 +14,14 @@ import {
 } from '@example/shared';
 import { useUserFullInfoQuery } from '@example/modules/AuthModule';
 
-import { HeaderStore } from './store';
+import { createHeaderLogic } from './store';
 
 export const Header = observer(() => {
-  const [{ setData, displayName }] = useState(() => new HeaderStore());
+  const [{ getState }] = useState(createHeaderLogic);
 
-  useUserFullInfoQuery({ onSuccess: setData });
+  const query = useUserFullInfoQuery();
+
+  const { user } = getState(query);
 
   return (
     <DashboardLayout.Header
@@ -35,7 +37,7 @@ export const Header = observer(() => {
         ),
       }}
       profile={{
-        displayName,
+        displayName: user.displayName,
         menu: (props) => (
           <Menu {...props}>
             <MenuItem>

@@ -1,4 +1,4 @@
-import { runInAction } from 'mobx';
+import { makeAutoObservable, runInAction } from 'mobx';
 
 import { AsyncState, AsyncStateStore } from '@example/shared';
 
@@ -26,7 +26,9 @@ export class EditDraftRequestLogic {
     private readonly tariffRepository: TariffRepository,
     private readonly requestID: string,
     private readonly handlers: Handlers,
-  ) {}
+  ) {
+    makeAutoObservable(this, {}, { autoBind: true });
+  }
 
   get editRequestState(): AsyncState {
     return this.editRequestStateStore.state;

@@ -1,5 +1,4 @@
-import { useState } from 'react';
-import { observer } from 'mobx-react-lite';
+import { useMemo, useState } from 'react';
 
 import { FormAutocomplete, FormAutocompleteProps } from '@example/shared';
 
@@ -15,23 +14,25 @@ export type TariffFormAutocompleteProps = Pick<
   'name' | 'control' | 'label'
 >;
 
-export const TariffFormAutocomplete = observer(
-  ({ name, control, label }: TariffFormAutocompleteProps) => {
-    const [{ formatTariffs }] = useState(createTariffAutocompleteStore);
+export const TariffFormAutocomplete = ({
+  name,
+  control,
+  label,
+}: TariffFormAutocompleteProps) => {
+  const [{ getState }] = useState(createTariffAutocompleteStore);
 
-    const { isLoading, data: tariffs = [] } = useTariffsQuery<
-      TariffFormAutocompleteValue[]
-    >({ select: formatTariffs });
+  const query = useTariffsQuery();
 
-    return (
-      <FormAutocomplete<TariffFormAutocompleteValue>
-        name={name}
-        control={control}
-        label={label}
-        options={tariffs}
-        loading={isLoading}
-        getOptionLabel={(option) => option?.name}
-      />
-    );
-  },
-);
+  const { tariffs, isLoading } = useMemo(() => getState(query), [query]);
+
+  return (
+    <FormAutocomplete<TariffFormAutocompleteValue>
+      name={name}
+      control={control}
+      label={label}
+      options={tariffs}
+      loading={isLoading}
+      getOptionLabel={(option) => option?.name}
+    />
+  );
+};

@@ -5,8 +5,13 @@ export type TariffFormAutocompleteValue = Pick<
   'name' | 'id' | 'price'
 >;
 
+export type TariffAutocompleteState = {
+  isLoading: boolean;
+  tariffs: TariffFormAutocompleteValue[];
+};
+
 export class TariffAutocompleteStore {
-  public formatTariffs = ({
+  private formatTariffs = ({
     data,
   }: TariffListDTO): TariffFormAutocompleteValue[] =>
     data.map(({ name, id, price }) => ({
@@ -14,6 +19,17 @@ export class TariffAutocompleteStore {
       id,
       price,
     }));
+
+  public getState = ({
+    isLoading,
+    data,
+  }: {
+    isLoading: boolean;
+    data?: TariffListDTO;
+  }): TariffAutocompleteState => ({
+    isLoading,
+    tariffs: data ? this.formatTariffs(data) : [],
+  });
 }
 
 export const createTariffAutocompleteStore = () =>
