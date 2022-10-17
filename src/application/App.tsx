@@ -7,14 +7,12 @@ import {
   BrowserRouter,
   NotificationContainer,
   ThemeProvider,
-  theme,
-} from '@example/shared';
-import {
-  MainLayout,
   apiHttpClient,
   configService,
   queryClient,
-} from '@example/modules/ServiceModule';
+  theme,
+} from '@example/shared';
+import { MainLayout } from '@example/modules/LayoutModule';
 import { authStore } from '@example/modules/AuthModule';
 
 import { MainRouter } from './Router';

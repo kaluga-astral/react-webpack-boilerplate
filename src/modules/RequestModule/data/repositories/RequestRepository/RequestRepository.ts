@@ -1,10 +1,11 @@
-import { LocalStorageService, localStorageService } from '@example/shared';
 import {
+  LocalStorageService,
   QueryClient,
   RepositoryFetchParams,
   createCachedQuery,
+  localStorageService,
   queryClient as queryClientInstance,
-} from '@example/modules/ServiceModule';
+} from '@example/shared';
 
 import {
   RequestNetworkSources,

@@ -1,11 +1,9 @@
 import {
   QueryClient,
-  queryClient as queryClientInstance,
-} from '@example/modules/ServiceModule/services';
-import {
   RepositoryFetchParams,
   createCachedQuery,
-} from '@example/modules/ServiceModule';
+  queryClient as queryClientInstance,
+} from '@example/shared';
 
 import {
   UserContactNetworkDTO,

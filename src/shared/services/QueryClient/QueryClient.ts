@@ -17,4 +17,6 @@ export const createQueryClient = () =>
     },
   });
 
-export { QueryClient, QueryFunction, FetchQueryOptions };
+export const queryClient = createQueryClient();
+
+export type { QueryClient, QueryFunction, FetchQueryOptions };

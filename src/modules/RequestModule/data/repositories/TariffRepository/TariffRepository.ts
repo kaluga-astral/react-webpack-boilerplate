@@ -3,7 +3,7 @@ import {
   RepositoryFetchParams,
   createCachedQuery,
   queryClient as queryClientInstance,
-} from '@example/modules/ServiceModule';
+} from '@example/shared';
 
 import {
   TariffsNetworkSources,

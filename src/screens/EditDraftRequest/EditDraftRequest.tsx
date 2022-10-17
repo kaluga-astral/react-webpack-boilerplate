@@ -1,13 +1,12 @@
 import { useState } from 'react';
 import { observer } from 'mobx-react-lite';
 
-import { ContentState, NavigateFunction } from '@example/shared';
+import { APP_ROUTES, ContentState, NavigateFunction } from '@example/shared';
 import {
   DraftRequestForm,
   createEditRequestDraftLogic,
   useRequestWithTariffQuery,
 } from '@example/modules/RequestModule';
-import { APP_ROUTES } from '@example/modules/ServiceModule';
 
 import { EditDraftContentState } from './ContentState';
 

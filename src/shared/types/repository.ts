@@ -1,4 +1,4 @@
-import { QueryFetchPolicy } from '@example/shared';
+import { QueryFetchPolicy } from '../services';
 
 export type RepositoryFetchParams = {
   fetchPolicy?: QueryFetchPolicy;
