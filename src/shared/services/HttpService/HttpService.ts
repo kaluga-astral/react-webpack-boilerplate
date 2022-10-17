@@ -7,9 +7,24 @@ import axios, {
   AxiosResponse,
 } from 'axios';
 
-export type HttpService = AxiosInstance;
+import { DataError } from '../DataError';
 
-export type HttpServiceError = AxiosError;
+type ErrorHandler = (error: HttpServiceError<unknown, unknown>) => unknown;
+type ErrorFormatter<
+  CurrentDataError extends DataError<Record<string, unknown>>,
+  //  eslint-disable-next-line
+> = (error: HttpServiceError<any, any>) => CurrentDataError;
+
+export interface HttpService extends AxiosInstance {
+  subscribeOnError(func: ErrorHandler): void;
+  initErrorFormatter<
+    CurrentDataError extends DataError<Record<string, unknown>>,
+  >(
+    func: ErrorFormatter<CurrentDataError>,
+  ): void;
+}
+
+export type HttpServiceError<T, D> = AxiosError<T, D>;
 
 export type HttpServiceResponse<T, D = T> = AxiosResponse<T, D>;
 
@@ -19,13 +34,41 @@ type HttpServiceConfig = AxiosRequestConfig;
 
 export const createHttpService = (
   config: HttpServiceConfig = {},
-): HttpService =>
-  axios.create({
+): HttpService => {
+  const errorListeners: ErrorHandler[] = [];
+  let errorFormatter: ErrorFormatter<DataError<Record<string, unknown>>> = () =>
+    new DataError({
+      errors: [{ message: 'Неизвестная ошибка', additionalInfo: {} }],
+    });
+
+  const httpService = axios.create({
     ...config,
     paramsSerializer: (params) => {
       return stringify(params);
     },
-  });
+  }) as HttpService;
+
+  httpService.subscribeOnError = (func) => {
+    errorListeners.push(func);
+  };
+
+  httpService.initErrorFormatter = (func) => {
+    errorFormatter = func;
+  };
+
+  httpService.interceptors.response.use(
+    (res) => res,
+    (error) => {
+      errorListeners.forEach((func) => {
+        func(error);
+      });
+
+      return Promise.reject(errorFormatter(error));
+    },
+  );
+
+  return httpService;
+};
 
 export const setStaticAuthToken = (httpService: HttpService, token: string) => {
   // eslint-disable-next-line
