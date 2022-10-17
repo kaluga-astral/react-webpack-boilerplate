@@ -8,3 +8,5 @@ export type QueryClientCacheParams = {
   cacheTime?: QueryClientCache;
   networkMode?: QueryClientNetworkMode;
 };
+
+export type QueryFetchPolicy = 'network-only' | 'cache-first';

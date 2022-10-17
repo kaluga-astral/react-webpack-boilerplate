@@ -23,8 +23,6 @@ export class CreateDraftRequestStore {
     private readonly requestRepository: RequestRepository,
     private readonly handlers: Handlers,
   ) {
-    this.requestRepository = requestRepository;
-    this.handlers = handlers;
     makeAutoObservable(this, {}, { autoBind: true });
   }
 
@@ -46,6 +44,16 @@ export class CreateDraftRequestStore {
         this.isLoading = false;
         this.isSuccess = true;
       });
+
+      this.requestRepository.updateRequestWithTariffCache(
+        requestID,
+        () =>
+          ({
+            description: data.description,
+            // any потому что тестовый пример
+            //  eslint-disable-next-line
+          } as any),
+      );
 
       this.handlers.onSuccessCreateRequest(requestID);
     } catch (err) {

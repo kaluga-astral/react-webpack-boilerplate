@@ -1,8 +1,9 @@
 import {
   QueryClient,
   RepositoryFetchParams,
+  createCachedQuery,
   queryClient as queryClientInstance,
-} from '@example/modules/ServiceModule';
+} from '@example/shared';
 
 import {
   OwnerNetworkSources,
@@ -23,6 +24,11 @@ export class OwnerRepository {
     this.queryClient = queryClient;
   }
 
+  public getOwnerInfoCacheKey = (ownerID: string) => [
+    'ownerInfoCacheKey',
+    ownerID,
+  ];
+
   /**
    * @description Получение полной информации о владельце
    * */
@@ -30,10 +36,11 @@ export class OwnerRepository {
     ownerID: string,
     params?: RepositoryFetchParams,
   ) =>
-    this.queryClient.fetchQuery<OwnerDTO>(
-      [Symbol()],
+    createCachedQuery<OwnerDTO>(
+      this.queryClient,
+      this.getOwnerInfoCacheKey(ownerID),
       () => this.ownerNetworkSources.getInfo(ownerID),
-      params?.cache,
+      params,
     );
 }
 

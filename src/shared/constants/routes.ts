@@ -17,4 +17,10 @@ export const APP_ROUTES = {
       return `/editDraftRequest/${requestID}`;
     },
   },
+  request: {
+    route: '/request/:requestID',
+    getRedirectPath(requestID: string) {
+      return `/request/${requestID}`;
+    },
+  },
 } as const;

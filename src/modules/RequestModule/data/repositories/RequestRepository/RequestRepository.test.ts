@@ -29,8 +29,8 @@ describe('RequestRepository.getRequestFullInfo', () => {
       { getOwnerInfo: async () => owner } as any,
       // eslint-disable-next-line
       {} as any,
-      localStorageService,
       queryClient,
+      localStorageService,
     );
 
     const expectedResult = {

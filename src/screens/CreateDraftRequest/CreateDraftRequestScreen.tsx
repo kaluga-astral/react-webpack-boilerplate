@@ -18,7 +18,7 @@ export const CreateDraftRequestScreen = observer(({ navigate }: Props) => {
     createDraftRequestStore({
       onSuccessCreateRequest: (requestID) => {
         setTimeout(() => {
-          navigate(APP_ROUTES.editDraftRequest.getRedirectPath(requestID));
+          navigate(APP_ROUTES.request.getRedirectPath(requestID));
         }, 3000);
       },
     }),

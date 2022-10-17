@@ -1,6 +1,6 @@
 import { makeAutoObservable } from 'mobx';
 
-import { HttpService } from '@example/shared';
+import { HttpService, UNAUTHORIZED_HTTP_CODE } from '@example/shared';
 
 export class AuthStore {
   public isAuthored: boolean = false;
@@ -25,7 +25,13 @@ export class AuthStore {
 
   private initHttpClients = () => {
     this.protectedHttpClients.forEach((client) => {
-      client.defaults.headers.common.Authorization = this.accessToken as string;
+      client.subscribeOnError((error) => {
+        if (Number(error.code) === UNAUTHORIZED_HTTP_CODE) {
+          window.location.href = (
+            error.response?.data as { redirectUrl: string }
+          ).redirectUrl;
+        }
+      });
     });
   };
 }

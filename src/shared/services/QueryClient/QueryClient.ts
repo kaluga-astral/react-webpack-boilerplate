@@ -1,4 +1,8 @@
-import { QueryClient } from '@tanstack/react-query';
+import {
+  FetchQueryOptions,
+  QueryClient,
+  QueryFunction,
+} from '@tanstack/react-query';
 
 import { QueryClientCache } from './enums';
 
@@ -6,11 +10,13 @@ export const createQueryClient = () =>
   new QueryClient({
     defaultOptions: {
       queries: {
-        staleTime: Infinity,
-        cacheTime: QueryClientCache.NoCache,
+        staleTime: 0,
+        cacheTime: QueryClientCache.MaxLong,
         refetchOnWindowFocus: false,
       },
     },
   });
 
-export { QueryClient };
+export const queryClient = createQueryClient();
+
+export type { QueryClient, QueryFunction, FetchQueryOptions };

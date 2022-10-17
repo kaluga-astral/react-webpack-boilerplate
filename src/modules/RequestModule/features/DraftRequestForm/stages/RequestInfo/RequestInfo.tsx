@@ -1,10 +1,10 @@
 import {
   FormTextField,
   Typography,
+  formatPriceToView,
   useFormContext,
   useFormWatch,
 } from '@example/shared';
-import { formatPriceToView } from '@example/modules/ServiceModule';
 
 import { RequestInfoStageValues } from '../../store';
 

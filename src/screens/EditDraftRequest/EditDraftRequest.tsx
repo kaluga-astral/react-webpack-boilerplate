@@ -1,10 +1,11 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { observer } from 'mobx-react-lite';
 
 import { APP_ROUTES, ContentState, NavigateFunction } from '@example/shared';
 import {
   DraftRequestForm,
-  createEditRequestDraftStore,
+  createEditRequestDraftLogic,
+  useRequestWithTariffQuery,
 } from '@example/modules/RequestModule';
 
 import { EditDraftContentState } from './ContentState';
@@ -16,16 +17,8 @@ type Props = {
 
 export const EditDraftRequestScreen = observer(
   ({ requestID, navigate }: Props) => {
-    const [
-      {
-        fetchRequestState,
-        getRequest,
-        editRequestState,
-        editRequest,
-        retryEditRequest,
-      },
-    ] = useState(() =>
-      createEditRequestDraftStore(requestID, {
+    const [{ editRequest, retryEditRequest, editRequestState }] = useState(() =>
+      createEditRequestDraftLogic(requestID, {
         onSuccessEditRequest: () => {
           setTimeout(() => {
             navigate(APP_ROUTES.createDraftRequest.getRedirectPath());
@@ -34,23 +27,25 @@ export const EditDraftRequestScreen = observer(
       }),
     );
 
-    useEffect(() => {
-      getRequest();
-    }, []);
+    const {
+      isLoading: isLoadingRequest,
+      isError: isErrorRequest,
+      data: requestInitialValues,
+    } = useRequestWithTariffQuery(requestID);
 
     return (
       <section>
-        <ContentState
-          isLoading={fetchRequestState.isLoading}
-          isError={Boolean(fetchRequestState.errorMessage)}
-        >
+        <ContentState isLoading={isLoadingRequest} isError={isErrorRequest}>
           <header>Редактирование заявления</header>
           <EditDraftContentState
             {...editRequestState}
             isError={Boolean(editRequestState.errorMessage)}
             onRetryEdit={retryEditRequest}
           >
-            <DraftRequestForm onSubmit={editRequest} />
+            <DraftRequestForm
+              initialValues={requestInitialValues}
+              onSubmit={editRequest}
+            />
           </EditDraftContentState>
         </ContentState>
       </section>

@@ -1,7 +1,8 @@
 import { useEffect, useState } from 'react';
-import { observer } from 'mobx-react-lite';
 
 import { FormAutocomplete, FormAutocompleteProps } from '@example/shared';
+
+import { useTariffsQuery } from '../../data';
 
 import {
   TariffFormAutocompleteValue,
@@ -13,25 +14,29 @@ export type TariffFormAutocompleteProps = Pick<
   'name' | 'control' | 'label'
 >;
 
-export const TariffFormAutocomplete = observer(
-  ({ name, control, label }: TariffFormAutocompleteProps) => {
-    const [{ getTariffs, isLoading, options }] = useState(
-      createTariffAutocompleteStore,
-    );
+export const TariffFormAutocomplete = ({
+  name,
+  control,
+  label,
+}: TariffFormAutocompleteProps) => {
+  const [{ setFetchTariffResult, tariffs, isLoading }] = useState(
+    createTariffAutocompleteStore,
+  );
 
-    useEffect(() => {
-      getTariffs();
-    }, []);
+  const query = useTariffsQuery({ fetchPolicy: 'network-only' });
 
-    return (
-      <FormAutocomplete<TariffFormAutocompleteValue>
-        name={name}
-        control={control}
-        label={label}
-        options={options}
-        loading={isLoading}
-        getOptionLabel={(option) => option?.name}
-      />
-    );
-  },
-);
+  useEffect(() => {
+    setFetchTariffResult(query);
+  }, [query]);
+
+  return (
+    <FormAutocomplete<TariffFormAutocompleteValue>
+      name={name}
+      control={control}
+      label={label}
+      options={tariffs}
+      loading={isLoading}
+      getOptionLabel={(option) => option?.name}
+    />
+  );
+};

@@ -12,6 +12,9 @@ export {
   Autocomplete,
   Typography,
   AutocompleteProps,
+  notify,
+  NotificationContainer,
+  Description,
 } from '@astral/ui';
 
 export {

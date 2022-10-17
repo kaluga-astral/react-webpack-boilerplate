@@ -1,4 +1,4 @@
-import { apiHttpClient } from '@example/modules/ServiceModule';
+import { apiHttpClient } from '@example/shared';
 
 import {
   CreateDraftRequestNetworkInputDTO,
