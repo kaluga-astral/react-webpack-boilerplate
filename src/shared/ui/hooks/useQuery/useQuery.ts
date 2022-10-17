@@ -5,9 +5,15 @@ import {
 } from '@tanstack/react-query';
 import { useMemo } from 'react';
 
-import { QueryClientCache, QueryFetchPolicy } from '../../../services';
+import {
+  DataError,
+  QueryClientCache,
+  QueryFetchPolicy,
+} from '../../../services';
 
-export type UseQueryOptions<TData, TError = Error> = Omit<
+type DefaultError = DataError<Record<string, unknown>>;
+
+export type UseQueryOptions<TData, TError = DefaultError> = Omit<
   UseTanStackQueryOptions<TData, TError>,
   'cacheTime' | 'staleTime'
 > & {
@@ -17,12 +23,12 @@ export type UseQueryOptions<TData, TError = Error> = Omit<
   fetchPolicy?: QueryFetchPolicy;
 };
 
-export type UseQueryResult<TData, TError = Error> = UseTanStackQueryResult<
+export type UseQueryResult<
   TData,
-  TError
->;
+  TError = DefaultError,
+> = UseTanStackQueryResult<TData, TError>;
 
-export const useQuery = <TData, TError = Error>(
+export const useQuery = <TData, TError = DefaultError>(
   key: string[],
   fnData: () => Promise<TData>,
   options: UseQueryOptions<TData, TError> = { fetchPolicy: 'network-only' },
