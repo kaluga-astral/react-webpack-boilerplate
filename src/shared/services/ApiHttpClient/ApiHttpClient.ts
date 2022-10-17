@@ -1,5 +1,4 @@
-import { HttpService, createHttpService } from '@example/shared';
-
+import { HttpService, createHttpService } from '../HttpService';
 import { configService } from '../ConfigService';
 
 import { ApiDataError } from './error';

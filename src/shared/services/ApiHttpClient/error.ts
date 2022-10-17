@@ -1,4 +1,4 @@
-import { DataError } from '@example/shared';
+import { DataError } from '../DataError';
 
 export class ApiDataError extends DataError<{
   errorCustomField?: string;
