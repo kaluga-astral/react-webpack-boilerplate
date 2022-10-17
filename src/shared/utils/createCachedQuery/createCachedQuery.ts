@@ -1,12 +1,17 @@
 import { QueryFetchPolicy } from '@example/shared';
 
-import { QueryClient } from '../../services';
+import { DataError, QueryClient } from '../../services';
+
+type DefaultError = DataError<Record<string, unknown>>;
 
 type Options = {
   fetchPolicy?: QueryFetchPolicy;
 };
 
-export const createCachedQuery = <TQueryFnData = unknown, TError = unknown>(
+export const createCachedQuery = <
+  TQueryFnData = unknown,
+  TError = DefaultError,
+>(
   queryClient: QueryClient,
   queryKey: string[],
   fetch: () => Promise<TQueryFnData>,
