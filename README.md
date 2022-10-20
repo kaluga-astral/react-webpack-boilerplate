@@ -5,6 +5,9 @@
 
 # Архитектура
 ## Схема архитектуры
+<p align="center">
+  <img src='https://raw.githubusercontent.com/kaluga-astral/react-webpack-boilerplate/main/docs/arch-scheme.png' width='700px'>
+</p>
 
 ## Описание слоев
 
