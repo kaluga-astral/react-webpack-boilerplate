@@ -4,7 +4,7 @@ import { observer } from 'mobx-react-lite';
 import {
   ContentState,
   FormProvider,
-  SubmitButton,
+  FormSubmitButton,
   useForm,
 } from '@example/shared';
 
@@ -52,7 +52,9 @@ export const DraftRequestForm = observer(
             )}
           </Suspense>
           <footer>
-            <SubmitButton>{isLastStage ? 'Создать' : 'Далее'}</SubmitButton>
+            <FormSubmitButton>
+              {isLastStage ? 'Создать' : 'Далее'}
+            </FormSubmitButton>
           </footer>
         </form>
       </FormProvider>

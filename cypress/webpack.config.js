@@ -13,7 +13,7 @@ const MODE = 'development';
 module.exports =
   compose(
     useTranspileModules({
-      transpileModules: ['@astral/illustrations', '@astral/fonts'],
+      transpileModules: ['@astral/ui/fonts', '@astral/ui/illustrations'],
     }),
     useBabel({ useTs: true }),
     useTs(),
