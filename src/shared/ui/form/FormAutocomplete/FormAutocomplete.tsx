@@ -1,8 +1,8 @@
 import { Autocomplete, AutocompleteProps } from '../../external';
 import {
   WithFormFieldProps,
-  useFieldErrorProps,
   useFormController,
+  useFormFieldErrorProps,
 } from '../external';
 
 export type FormAutocompleteProps<
@@ -26,7 +26,7 @@ export function FormAutocomplete<
   FreeSolo extends boolean = false,
 >(props: FormAutocompleteProps<Option, Multiple, DisableClearable, FreeSolo>) {
   const { field, fieldState } = useFormController(props);
-  const errorProps = useFieldErrorProps(fieldState);
+  const errorProps = useFormFieldErrorProps(fieldState);
 
   // eslint-disable-next-line
   const handleChange: any = (_: any, value: Option | Option[]) => {

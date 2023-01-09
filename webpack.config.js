@@ -26,7 +26,7 @@ const publicDirPath = path.resolve(__dirname, 'public');
 module.exports = (_, { mode }) =>
   compose(
     useTranspileModules({
-      transpileModules: ['@astral/illustrations', '@astral/fonts'],
+      transpileModules: ['@astral/ui/illustrations', '@astral/ui/fonts'],
     }),
     useEnv({ envFilePath: path.resolve(__dirname, 'env', `.env.${ENV_NAME}`) }),
     useReactRefresh({ mode }),

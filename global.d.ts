@@ -1,7 +1,4 @@
-/// <reference types="@astral/ui/declaration/emotion" />
-/// <reference types="@astral/ui/declaration/mui-material" />
-/// <reference types="@emotion/react/types/css-prop" />
-/// <reference types="src/lib" />
+/// <reference types="@astral/ui/declarations" />
 
 declare module '*.svg?component' {
   const src: string;
